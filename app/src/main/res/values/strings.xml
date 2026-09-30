@@ -1,0 +1,134 @@
+<resources>
+    <string name="app_name">PetCare</string>
+
+    <!-- Navigation Labels -->
+    <string name="nav_home">Home</string>
+    <string name="nav_pets">Pets</string>
+    <string name="nav_plan">Plan</string>
+    <string name="nav_explore">Explore</string>
+    <string name="nav_profile">Profile</string>
+
+    <!-- Radial Wheel Menu Labels -->
+    <string name="action_add_pet">+ Pet</string>
+    <string name="action_add_task">+ Care Task</string>
+    <string name="action_log_activity">+ Activity</string>
+    <string name="action_add_reminder">+ Reminder</string>
+    <string name="action_add_appointment">+ Appointment</string>
+    <string name="action_add_vaccination">+ Vaccination</string>
+
+    <!-- Empty States -->
+    <string name="empty_pets_title">Your pet crew is waiting.</string>
+    <string name="empty_pets_sub">Tap "+ Pet" to add your first beloved companion.</string>
+    <string name="empty_plan_title">Nothing planned yet.</string>
+    <string name="empty_plan_sub">All tasks, reminders, and appointments for your pet will appear here.</string>
+    <string name="empty_activity_title">No activity logged yet.</string>
+    <string name="empty_activity_sub">Keep track of walks, feeding, playtime, and routines.</string>
+
+    <!-- Authentication -->
+    <string name="login_brand_title">PetCare</string>
+    <string name="login_welcome_subtitle">Welcome Back</string>
+    <string name="login_caption">Sign in to manage your pets\' daily routines.</string>
+    <string name="hint_email">Email Address</string>
+    <string name="hint_password">Password</string>
+    <string name="btn_sign_in">Sign In</string>
+    <string name="link_sign_up">New here? Create an account</string>
+    <string name="error_valid_email">Enter a valid email address</string>
+    <string name="error_password_length">Password must be at least 8 characters</string>
+    <string name="toast_welcome_back">Good to see you again.</string>
+
+    <string name="signup_title">Create Account</string>
+    <string name="signup_caption">Join PetCare to start tracking your pets.</string>
+    <string name="hint_full_name">Full Name</string>
+    <string name="hint_confirm_password">Confirm Password</string>
+    <string name="btn_sign_up">Sign Up</string>
+    <string name="link_sign_in">Already have an account? Sign in</string>
+    <string name="error_name_empty">Name cannot be empty</string>
+    <string name="error_password_match">Passwords do not match</string>
+    <string name="toast_account_created">Account created successfully! Please sign in.</string>
+
+    <!-- Entry Screen -->
+    <string name="entry_title">Cozy care for your\nlovely companions</string>
+    <string name="entry_subtitle">The intelligent way to track routines,\nhealth, and happy moments.</string>
+    <string name="btn_get_started">Get Started</string>
+
+    <!-- Dashboard -->
+    <string name="greeting_format">%1$s, %2$s</string>
+    <string name="subtitle_dashboard">Your pet crew is doing great</string>
+    <string name="sign_out">Sign Out</string>
+    <string name="my_pets">My Pets Crew</string>
+    <string name="add_pet">Add Pet</string>
+    <string name="care_tasks">Care Plan</string>
+    <string name="add_task">New Task</string>
+    <string name="today_care">Today\'s Care</string>
+    <string name="upcoming_care">Upcoming Care</string>
+    <string name="quick_actions">Quick Actions</string>
+    <string name="btn_explore_map">Explore Map</string>
+    <string name="btn_delegate">Share Care Plan</string>
+    <string name="log_activity">Log Activity</string>
+    <string name="recent_activity">Recent Activity</string>
+    <string name="member_since_format">Member since %1$s</string>
+    <string name="view_profile">View Profile →</string>
+    <string name="active_companion">Active Companion</string>
+
+    <!-- Tasks & Plan -->
+    <string name="task_completed">Task completed</string>
+    <string name="delete_task">Delete task</string>
+    <string name="task_time_category_format">%1$s · %2$s</string>
+    <string name="no_tasks">No tasks for today. Relax!</string>
+
+    <!-- Pet Details -->
+    <string name="pet_profile">Pet Profile</string>
+    <string name="edit_pet">Edit Pet</string>
+    <string name="delete_pet">Delete Pet</string>
+    <string name="save_changes">Save Changes</string>
+    <string name="hint_pet_name">Pet Name</string>
+    <string name="hint_pet_species">Species</string>
+    <string name="hint_pet_breed">Breed</string>
+    <string name="hint_pet_age">Age (Years)</string>
+    <string name="hint_owner_contact">Owner Phone Number</string>
+    <string name="hint_pet_weight">Weight</string>
+    <string name="hint_dietary_prefs">Dietary Preferences</string>
+    <string name="hint_vaccination_history">Vaccination History</string>
+    <string name="hint_allergies">Allergies</string>
+    <string name="hint_favorite_toys">Favorite Toys</string>
+    <string name="dialog_delete_pet_title">Remove Companion?</string>
+    <string name="dialog_delete_pet_message">This will delete all care history for this pet. This action cannot be undone.</string>
+    <string name="cancel">Cancel</string>
+    <string name="delete">Delete</string>
+
+    <!-- Profile Section -->
+    <string name="change_photo">Change Photo</string>
+    <string name="personal_details">Personal Details</string>
+    <string name="change_password">Change Password</string>
+    <string name="my_pet_care">My Pet Care</string>
+    <string name="reminders">Reminders</string>
+    <string name="appointments">Appointments</string>
+    <string name="vaccinations">Vaccinations</string>
+    <string name="app_settings">App Settings</string>
+    <string name="about_petcare">About PetCare</string>
+    <string name="delete_account">Delete Account</string>
+
+    <!-- Delegation -->
+    <string name="delegate_care">Share Care Plan</string>
+    <string name="select_pet">Select Companion</string>
+    <string name="caregiver_phone">Sitter Phone Number</string>
+    <string name="btn_send_instructions">Send via Messaging App</string>
+    <string name="sms_message_template">Care instructions for %1$s:\n\n%2$s\n\nSent via PetCare 🐾</string>
+
+    <!-- Map -->
+    <string name="pet_map">Pet Map</string>
+    <string name="map_placeholder_title">Explore Nearby</string>
+    <string name="map_placeholder_text">Discover high-quality local veterinary clinics, premium grooming salons, dog parks, and shelters around your area.</string>
+
+    <!-- Dialogs -->
+    <string name="hint_task_title">Task Title</string>
+    <string name="hint_task_category">Category (e.g. Feeding, Exercise)</string>
+    <string name="hint_task_due_date">Due Time (e.g. 08:00 AM)</string>
+    <string name="hint_reminder_title">Reminder Title</string>
+    <string name="hint_reminder_type">Type (e.g. Medication, Food)</string>
+    <string name="hint_appointment_title">Appointment Title</string>
+    <string name="hint_appointment_clinic">Clinic / Vet Name</string>
+    <string name="hint_vaccine_name">Vaccine Name</string>
+    <string name="hint_next_due_date">Next Due Date</string>
+
+</resources>

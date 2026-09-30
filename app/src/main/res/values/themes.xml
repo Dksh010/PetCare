@@ -1,0 +1,90 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.PetCare" parent="Theme.Material3.Dark.NoActionBar">
+        <!-- Primary brand colors -->
+        <item name="colorPrimary">@color/brand_green</item>
+        <item name="colorOnPrimary">@color/background_obsidian</item>
+        <item name="colorPrimaryContainer">@color/deep_green</item>
+        <item name="colorOnPrimaryContainer">@color/mint_highlight</item>
+
+        <!-- Secondary colors -->
+        <item name="colorSecondary">@color/soft_sage</item>
+        <item name="colorOnSecondary">@color/background_obsidian</item>
+        <item name="colorSecondaryContainer">@color/surface_elevated</item>
+        <item name="colorOnSecondaryContainer">@color/text_primary</item>
+
+        <!-- Background and surface colors -->
+        <item name="android:windowBackground">@color/background_obsidian</item>
+        <item name="colorSurface">@color/surface_primary</item>
+        <item name="colorOnSurface">@color/text_primary</item>
+        <item name="colorSurfaceVariant">@color/surface_elevated</item>
+        <item name="colorOnSurfaceVariant">@color/text_secondary</item>
+
+        <!-- Error states -->
+        <item name="colorError">@color/error_red</item>
+        <item name="colorOnError">@color/background_obsidian</item>
+
+        <!-- Typography & Shapes -->
+        <item name="textAppearanceHeadlineMedium">@style/TextAppearance.PetCare.HeadlineMedium</item>
+        <item name="textAppearanceTitleLarge">@style/TextAppearance.PetCare.TitleLarge</item>
+        <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.PetCare.SmallComponent</item>
+        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.PetCare.MediumComponent</item>
+        <item name="shapeAppearanceLargeComponent">@style/ShapeAppearance.PetCare.LargeComponent</item>
+    </style>
+
+    <style name="Theme.PetCare" parent="Base.Theme.PetCare" />
+
+    <!-- Splash Screen Theme -->
+    <style name="Theme.PetCare.Splash" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/background_obsidian</item>
+        <item name="windowSplashScreenAnimatedIcon">@mipmap/ic_launcher</item>
+        <item name="postSplashScreenTheme">@style/Theme.PetCare</item>
+    </style>
+
+    <!-- Typography Styles -->
+    <style name="TextAppearance.PetCare.HeadlineMedium" parent="TextAppearance.Material3.HeadlineMedium">
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+
+    <style name="TextAppearance.PetCare.TitleLarge" parent="TextAppearance.Material3.TitleLarge">
+        <item name="android:textColor">@color/brand_green</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+
+    <style name="TextAppearance.PetCare.Body" parent="TextAppearance.Material3.BodyMedium">
+        <item name="android:textColor">@color/text_secondary</item>
+    </style>
+
+    <!-- Shape Styles -->
+    <style name="ShapeAppearance.PetCare.SmallComponent" parent="ShapeAppearance.Material3.SmallComponent">
+        <item name="cornerSize">12dp</item>
+    </style>
+
+    <style name="ShapeAppearance.PetCare.MediumComponent" parent="ShapeAppearance.Material3.MediumComponent">
+        <item name="cornerSize">20dp</item>
+    </style>
+
+    <style name="ShapeAppearance.PetCare.LargeComponent" parent="ShapeAppearance.Material3.LargeComponent">
+        <item name="cornerSize">28dp</item>
+    </style>
+
+    <!-- Reusable custom component styles -->
+    <style name="PetCareTextField" parent="Widget.Material3.TextInputLayout.OutlinedBox">
+        <item name="boxBackgroundColor">@color/surface_primary</item>
+        <item name="boxStrokeColor">@color/surface_elevated</item>
+        <item name="boxStrokeWidth">1dp</item>
+        <item name="hintTextColor">@color/text_secondary</item>
+        <item name="android:textColorHint">@color/text_muted</item>
+        <item name="shapeAppearance">@style/ShapeAppearance.PetCare.MediumComponent</item>
+    </style>
+
+    <style name="PetCarePrimaryButton" parent="Widget.Material3.Button">
+        <item name="android:backgroundTint">@color/brand_green</item>
+        <item name="android:textColor">@color/background_obsidian</item>
+        <item name="android:textStyle">bold</item>
+        <item name="shapeAppearance">@style/ShapeAppearance.PetCare.MediumComponent</item>
+    </style>
+</resources>

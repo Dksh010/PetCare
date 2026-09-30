@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Modern Obsidian + Mint Green Palette -->
+    <color name="background_obsidian">#151916</color>
+    <color name="surface_primary">#202720</color>
+    <color name="surface_elevated">#273229</color>
+    <color name="surface_light">#313E34</color>
+
+    <color name="deep_green">#244D3B</color>
+    <color name="brand_green">#69C79D</color>
+    <color name="fresh_green">#82D6AD</color>
+    <color name="soft_mint">#B9E6D0</color>
+    <color name="mint_highlight">#B9E6D0</color>
+    <color name="sage">#A8CBB8</color>
+    <color name="soft_sage">#A8CBB8</color>
+
+    <color name="cream_text">#F5F0E6</color>
+    <color name="text_primary">#EEF3EF</color>
+    <color name="text_secondary">#B8C2BB</color>
+    <color name="text_muted">#89958E</color>
+
+    <color name="amber_warm">#E5BD6B</color>
+    <color name="success_green">#68CF91</color>
+    <color name="error_red">#E97979</color>
+
+    <!-- Overlay & Accent colors -->
+    <color name="backdrop_overlay">#CC0E120E</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="transparent">#00000000</color>
+
+    <!-- Legacy / Compatibility Mappings -->
+    <color name="near_black">@color/background_obsidian</color>
+    <color name="surface">@color/surface_primary</color>
+    <color name="elevated_surface">@color/surface_elevated</color>
+    <color name="primary_text">@color/text_primary</color>
+    <color name="secondary_text">@color/text_secondary</color>
+    <color name="muted_text">@color/text_muted</color>
+    <color name="amber">@color/amber_warm</color>
+    <color name="success">@color/success_green</color>
+    <color name="error">@color/error_red</color>
+    <color name="primary_deep">@color/deep_green</color>
+    <color name="primary_green">@color/brand_green</color>
+    <color name="teal_vibrant">@color/brand_green</color>
+    <color name="mint_accent">@color/soft_mint</color>
+    <color name="coral_warm">@color/amber_warm</color>
+    <color name="golden_accent">@color/amber_warm</color>
+    <color name="blue_green_deep">@color/deep_green</color>
+    <color name="background_cream">@color/background_obsidian</color>
+    <color name="surface_sage_soft">@color/sage</color>
+    <color name="surface_white">@color/surface_primary</color>
+    <color name="text_dark">@color/text_primary</color>
+    <color name="text_on_primary">@color/background_obsidian</color>
+</resources>

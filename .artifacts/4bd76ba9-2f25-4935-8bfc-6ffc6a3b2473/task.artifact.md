@@ -1,0 +1,6 @@
+- [x] Update Room version to `2.8.5` in `libs.versions.toml`
+- [x] Remove `ksp.useKSP2=false` from `gradle.properties` (KSP1 is deprecated/removed in this version)
+- [x] Update Room version to `2.8.5` in `libs.versions.toml`
+- [x] Remove `ksp.useKSP2=false` from `gradle.properties` (KSP1 is deprecated/removed in this version)
+- [x] Sync Gradle project
+- [x] Verify build by running `./gradlew :app:kspDebugKotlin` and `./gradlew assembleDebug`

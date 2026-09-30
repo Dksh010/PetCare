@@ -1,0 +1,8 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Align dark theme with the standard dark theme for absolute consistency -->
+    <style name="Base.Theme.PetCare" parent="Theme.Material3.Dark.NoActionBar">
+        <item name="colorPrimary">@color/brand_green</item>
+        <item name="colorOnPrimary">@color/near_black</item>
+        <item name="android:windowBackground">@color/near_black</item>
+    </style>
+</resources>
