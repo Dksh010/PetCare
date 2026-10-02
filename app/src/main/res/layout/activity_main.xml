@@ -84,9 +84,12 @@
 
                     <com.google.android.material.imageview.ShapeableImageView
                         android:id="@+id/ivUserHeaderAvatar"
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
+                        android:layout_width="52dp"
+                        android:layout_height="52dp"
                         android:scaleType="centerCrop"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:background="?attr/selectableItemBackgroundBorderless"
                         app:shapeAppearanceOverlay="@style/ShapeAppearance.PetCare.LargeComponent"
                         tools:src="@drawable/ic_person" />
                 </LinearLayout>
@@ -360,7 +363,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:layout_marginEnd="8dp"
+                        android:layout_marginEnd="6dp"
                         app:cardBackgroundColor="@color/surface_primary"
                         app:cardCornerRadius="20dp"
                         app:strokeColor="@color/surface_elevated"
@@ -371,7 +374,7 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:orientation="vertical"
-                            android:padding="16dp">
+                            android:padding="14dp">
 
                             <ImageView
                                 android:layout_width="28dp"
@@ -383,20 +386,21 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="8dp"
+                                android:layout_marginTop="6dp"
                                 android:text="@string/log_activity"
                                 android:textColor="@color/text_primary"
-                                android:textSize="13sp"
+                                android:textSize="12sp"
                                 android:textStyle="bold" />
                         </LinearLayout>
                     </com.google.android.material.card.MaterialCardView>
 
                     <com.google.android.material.card.MaterialCardView
-                        android:id="@+id/btnExploreMapQuick"
+                        android:id="@+id/btnQuickDelegate"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:layout_marginStart="8dp"
+                        android:layout_marginStart="4dp"
+                        android:layout_marginEnd="4dp"
                         app:cardBackgroundColor="@color/surface_primary"
                         app:cardCornerRadius="20dp"
                         app:strokeColor="@color/surface_elevated"
@@ -407,7 +411,43 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:orientation="vertical"
-                            android:padding="16dp">
+                            android:padding="14dp">
+
+                            <ImageView
+                                android:layout_width="28dp"
+                                android:layout_height="28dp"
+                                android:src="@drawable/ic_share"
+                                app:tint="@color/brand_green"
+                                android:contentDescription="@string/btn_delegate" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="6dp"
+                                android:text="Share Plan"
+                                android:textColor="@color/text_primary"
+                                android:textSize="12sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/btnExploreMapQuick"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginStart="6dp"
+                        app:cardBackgroundColor="@color/surface_primary"
+                        app:cardCornerRadius="20dp"
+                        app:strokeColor="@color/surface_elevated"
+                        app:strokeWidth="1dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:padding="14dp">
 
                             <ImageView
                                 android:layout_width="28dp"
@@ -419,25 +459,42 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="8dp"
+                                android:layout_marginTop="6dp"
                                 android:text="@string/btn_explore_map"
                                 android:textColor="@color/text_primary"
-                                android:textSize="13sp"
+                                android:textSize="12sp"
                                 android:textStyle="bold" />
                         </LinearLayout>
                     </com.google.android.material.card.MaterialCardView>
                 </LinearLayout>
 
-                <!-- Activity Snapshot -->
-                <TextView
-                    android:layout_width="wrap_content"
+                <!-- Activity Snapshot Header -->
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="28dp"
                     android:layout_marginBottom="12dp"
-                    android:text="@string/recent_activity"
-                    android:textColor="@color/text_primary"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/recent_activity"
+                        android:textColor="@color/text_primary"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/btnViewAllActivity"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="View All →"
+                        android:textColor="@color/brand_green"
+                        android:textSize="13sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rvRecentActivity"
@@ -668,19 +725,10 @@
                         android:padding="16dp">
 
                         <Button
-                            android:id="@+id/btnDelegateCare"
-                            style="@style/Widget.Material3.Button.OutlinedButton"
-                            android:layout_width="match_parent"
-                            android:layout_height="52dp"
-                            android:text="@string/btn_delegate"
-                            android:textColor="@color/brand_green" />
-
-                        <Button
                             android:id="@+id/btnChangePassword"
                             style="@style/Widget.Material3.Button.TextButton"
                             android:layout_width="match_parent"
                             android:layout_height="52dp"
-                            android:layout_marginTop="8dp"
                             android:text="@string/change_password"
                             android:textColor="@color/text_primary" />
                     </LinearLayout>

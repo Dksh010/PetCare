@@ -17,9 +17,12 @@ room = "2.8.5"
 lifecycle = "2.8.7"
 coroutines = "1.9.0"
 
-# Google Maps Services
+# Google Maps Services (to be replaced)
 playServicesMaps = "19.0.0"
 playServicesLocation = "21.3.0"
+
+# OSMDroid for OpenStreetMap
+osmdroid = "6.1.14"
 
 # Testing Frameworks
 junit = "4.13.2"
@@ -45,9 +48,12 @@ lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-view
 lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycle" }
 coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "coroutines" }
 
-# Play Services Maps
+# Play Services Maps (to be removed)
 play-services-maps = { group = "com.google.android.gms", name = "play-services-maps", version.ref = "playServicesMaps" }
 play-services-location = { group = "com.google.android.gms", name = "play-services-location", version.ref = "playServicesLocation" }
+
+# OSMDroid
+osmdroid = { group = "org.osmdroid", name = "osmdroid-android", version.ref = "osmdroid" }
 
 # Unit & Instrumentation Testing
 junit = { group = "junit", name = "junit", version.ref = "junit" }

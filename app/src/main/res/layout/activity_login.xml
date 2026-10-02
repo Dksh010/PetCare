@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/near_black"
+    android:background="@color/background_obsidian"
     android:fillViewport="true"
     tools:context=".ui.auth.LoginActivity">
 
@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="@string/login_welcome_subtitle"
-            android:textColor="@color/primary_text"
+            android:textColor="@color/text_primary"
             android:textSize="32sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
@@ -43,7 +43,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="@string/login_caption"
-            android:textColor="@color/secondary_text"
+            android:textColor="@color/text_secondary"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -63,7 +63,7 @@
                 android:id="@+id/etEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/primary_text"
+                android:textColor="@color/text_primary"
                 android:inputType="textEmailAddress"
                 android:maxLines="1" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -83,40 +83,39 @@
                 android:id="@+id/etPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/primary_text"
+                android:textColor="@color/text_primary"
                 android:imeOptions="actionDone"
                 android:inputType="textPassword"
                 android:maxLines="1" />
         </com.google.android.material.textfield.TextInputLayout>
 
+        <TextView
+            android:id="@+id/tvForgotPassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="Forgot Password?"
+            android:textColor="@color/brand_green"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tilPassword" />
+
         <Button
             android:id="@+id/btnLogin"
             style="@style/PetCarePrimaryButton"
             android:layout_width="match_parent"
-            android:layout_height="64dp"
-            android:layout_marginTop="32dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="28dp"
             android:text="@string/btn_sign_in"
-            android:textSize="17sp"
-            app:layout_constraintTop_toBottomOf="@id/tilPassword" />
-
-        <!-- Continue with Google Placeholder Button (Isolated cleanly for later) -->
-        <Button
-            android:id="@+id/btnGoogleSignIn"
-            style="@style/Widget.Material3.Button.OutlinedButton"
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:layout_marginTop="16dp"
-            android:text="Continue with Google"
-            android:textColor="@color/brand_green"
-            app:strokeColor="@color/brand_green"
-            app:layout_constraintTop_toBottomOf="@id/btnLogin"
-            app:shapeAppearance="@style/ShapeAppearance.PetCare.MediumComponent" />
+            android:textSize="16sp"
+            app:layout_constraintTop_toBottomOf="@id/tvForgotPassword" />
 
         <TextView
             android:id="@+id/tvSignUp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="28dp"
             android:padding="8dp"
             android:text="@string/link_sign_up"
             android:textColor="@color/brand_green"
@@ -124,7 +123,7 @@
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btnGoogleSignIn" />
+            app:layout_constraintTop_toBottomOf="@id/btnLogin" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

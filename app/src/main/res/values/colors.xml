@@ -1,54 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Modern Obsidian + Mint Green Palette -->
-    <color name="background_obsidian">#151916</color>
-    <color name="surface_primary">#202720</color>
-    <color name="surface_elevated">#273229</color>
-    <color name="surface_light">#313E34</color>
+    <!-- 2026 Modern Light & Friendly PetCare Palette -->
+    <color name="background_obsidian">#FAFAF8</color>
+    <color name="near_black">#FAFAF8</color>
+    <color name="background_cream">#FAFAF8</color>
+    <color name="cream_background">#FAFAF8</color>
 
-    <color name="deep_green">#244D3B</color>
-    <color name="brand_green">#69C79D</color>
-    <color name="fresh_green">#82D6AD</color>
-    <color name="soft_mint">#B9E6D0</color>
-    <color name="mint_highlight">#B9E6D0</color>
-    <color name="sage">#A8CBB8</color>
-    <color name="soft_sage">#A8CBB8</color>
+    <!-- Surfaces & Cards -->
+    <color name="surface_primary">#FFFFFF</color>
+    <color name="surface_elevated">#F1F5F9</color>
+    <color name="surface_light">#E2E8F0</color>
+    <color name="surface">#FFFFFF</color>
+    <color name="elevated_surface">#F1F5F9</color>
+    <color name="surface_white">#FFFFFF</color>
+    <color name="soft_sage_surface">#F0FDF4</color>
+    <color name="surface_sage_soft">#F0FDF4</color>
 
-    <color name="cream_text">#F5F0E6</color>
-    <color name="text_primary">#EEF3EF</color>
-    <color name="text_secondary">#B8C2BB</color>
-    <color name="text_muted">#89958E</color>
+    <!-- Brand Emerald & Accents -->
+    <color name="deep_primary">#0F766E</color>
+    <color name="primary_green">#0D9488</color>
+    <color name="primary_deep">#0F766E</color>
+    <color name="brand_green">#0D9488</color>
+    <color name="fresh_green">#10B981</color>
+    <color name="soft_mint">#D1FAE5</color>
+    <color name="mint_highlight">#D1FAE5</color>
+    <color name="mint_accent">#D1FAE5</color>
+    <color name="vibrant_teal">#0D9488</color>
+    <color name="bright_mint_accent">#10B981</color>
+    <color name="sage">#CBD5E1</color>
+    <color name="soft_sage">#CBD5E1</color>
+    <color name="deep_green">#0F766E</color>
+    <color name="blue_green_deep">#0F766E</color>
+    <color name="primary_green_alt">#0D9488</color>
 
-    <color name="amber_warm">#E5BD6B</color>
-    <color name="success_green">#68CF91</color>
-    <color name="error_red">#E97979</color>
+    <!-- Warm Accents -->
+    <color name="amber_warm">#F59E0B</color>
+    <color name="amber">#F59E0B</color>
+    <color name="golden_accent">#F59E0B</color>
+    <color name="golden_accent_alt">#F59E0B</color>
+    <color name="coral_warm">#F97316</color>
+    <color name="warm_coral_accent">#F97316</color>
 
-    <!-- Overlay & Accent colors -->
-    <color name="backdrop_overlay">#CC0E120E</color>
+    <!-- High-Contrast Text Colors -->
+    <color name="text_primary">#0F172A</color>
+    <color name="primary_text">#0F172A</color>
+    <color name="text_dark">#0F172A</color>
+    <color name="text_dark_alt">#0F172A</color>
+
+    <color name="text_secondary">#475569</color>
+    <color name="secondary_text">#475569</color>
+    <color name="text_secondary_alt">#475569</color>
+
+    <color name="text_muted">#64748B</color>
+    <color name="muted_text">#64748B</color>
+
+    <color name="text_on_primary">#FFFFFF</color>
+    <color name="cream_text">#FFFFFF</color>
+
+    <!-- Functional States -->
+    <color name="success_green">#10B981</color>
+    <color name="success">#10B981</color>
+    <color name="error_red">#EF4444</color>
+    <color name="error">#EF4444</color>
+
+    <!-- Overlays & Basics -->
+    <color name="backdrop_overlay">#660F172A</color>
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
     <color name="transparent">#00000000</color>
-
-    <!-- Legacy / Compatibility Mappings -->
-    <color name="near_black">@color/background_obsidian</color>
-    <color name="surface">@color/surface_primary</color>
-    <color name="elevated_surface">@color/surface_elevated</color>
-    <color name="primary_text">@color/text_primary</color>
-    <color name="secondary_text">@color/text_secondary</color>
-    <color name="muted_text">@color/text_muted</color>
-    <color name="amber">@color/amber_warm</color>
-    <color name="success">@color/success_green</color>
-    <color name="error">@color/error_red</color>
-    <color name="primary_deep">@color/deep_green</color>
-    <color name="primary_green">@color/brand_green</color>
-    <color name="teal_vibrant">@color/brand_green</color>
-    <color name="mint_accent">@color/soft_mint</color>
-    <color name="coral_warm">@color/amber_warm</color>
-    <color name="golden_accent">@color/amber_warm</color>
-    <color name="blue_green_deep">@color/deep_green</color>
-    <color name="background_cream">@color/background_obsidian</color>
-    <color name="surface_sage_soft">@color/sage</color>
-    <color name="surface_white">@color/surface_primary</color>
-    <color name="text_dark">@color/text_primary</color>
-    <color name="text_on_primary">@color/background_obsidian</color>
 </resources>

@@ -1,15 +1,15 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <style name="Base.Theme.PetCare" parent="Theme.Material3.Dark.NoActionBar">
+    <!-- Base application theme (Modern Bright Light Theme). -->
+    <style name="Base.Theme.PetCare" parent="Theme.Material3.Light.NoActionBar">
         <!-- Primary brand colors -->
         <item name="colorPrimary">@color/brand_green</item>
-        <item name="colorOnPrimary">@color/background_obsidian</item>
-        <item name="colorPrimaryContainer">@color/deep_green</item>
-        <item name="colorOnPrimaryContainer">@color/mint_highlight</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorPrimaryContainer">@color/soft_mint</item>
+        <item name="colorOnPrimaryContainer">@color/text_primary</item>
 
         <!-- Secondary colors -->
-        <item name="colorSecondary">@color/soft_sage</item>
-        <item name="colorOnSecondary">@color/background_obsidian</item>
+        <item name="colorSecondary">@color/fresh_green</item>
+        <item name="colorOnSecondary">@color/white</item>
         <item name="colorSecondaryContainer">@color/surface_elevated</item>
         <item name="colorOnSecondaryContainer">@color/text_primary</item>
 
@@ -22,7 +22,7 @@
 
         <!-- Error states -->
         <item name="colorError">@color/error_red</item>
-        <item name="colorOnError">@color/background_obsidian</item>
+        <item name="colorOnError">@color/white</item>
 
         <!-- Typography & Shapes -->
         <item name="textAppearanceHeadlineMedium">@style/TextAppearance.PetCare.HeadlineMedium</item>
@@ -64,18 +64,18 @@
     </style>
 
     <style name="ShapeAppearance.PetCare.MediumComponent" parent="ShapeAppearance.Material3.MediumComponent">
-        <item name="cornerSize">20dp</item>
+        <item name="cornerSize">16dp</item>
     </style>
 
     <style name="ShapeAppearance.PetCare.LargeComponent" parent="ShapeAppearance.Material3.LargeComponent">
-        <item name="cornerSize">28dp</item>
+        <item name="cornerSize">24dp</item>
     </style>
 
     <!-- Reusable custom component styles -->
     <style name="PetCareTextField" parent="Widget.Material3.TextInputLayout.OutlinedBox">
-        <item name="boxBackgroundColor">@color/surface_primary</item>
-        <item name="boxStrokeColor">@color/surface_elevated</item>
-        <item name="boxStrokeWidth">1dp</item>
+        <item name="boxBackgroundColor">@color/white</item>
+        <item name="boxStrokeColor">@color/brand_green</item>
+        <item name="boxStrokeWidth">1.5dp</item>
         <item name="hintTextColor">@color/text_secondary</item>
         <item name="android:textColorHint">@color/text_muted</item>
         <item name="shapeAppearance">@style/ShapeAppearance.PetCare.MediumComponent</item>
@@ -83,7 +83,8 @@
 
     <style name="PetCarePrimaryButton" parent="Widget.Material3.Button">
         <item name="android:backgroundTint">@color/brand_green</item>
-        <item name="android:textColor">@color/background_obsidian</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">16sp</item>
         <item name="android:textStyle">bold</item>
         <item name="shapeAppearance">@style/ShapeAppearance.PetCare.MediumComponent</item>
     </style>

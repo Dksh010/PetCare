@@ -61,9 +61,8 @@ dependencies {
     implementation(libs.lifecycle.runtime.ktx)
     implementation(libs.coroutines.android)
 
-    // Google Maps SDK
-    implementation(libs.play.services.maps)
-    implementation(libs.play.services.location)
+    // OSMDroid for OpenStreetMap
+    implementation(libs.osmdroid)
 
     // Testing
     testImplementation(libs.junit)

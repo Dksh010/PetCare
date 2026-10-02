@@ -27,7 +27,11 @@ import com.petcare.app.util.Constants
 import com.petcare.app.util.PetImageUtils
 import com.petcare.app.util.SecurityUtils
 import com.petcare.app.util.SessionManager
+import com.google.android.material.chip.Chip
+import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.timepicker.MaterialTimePicker
+import com.google.android.material.timepicker.TimeFormat
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
@@ -99,7 +103,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        // Refresh user profile image if modified
         val profileUri = sessionManager.getProfileImageUri()
         PetImageUtils.loadUserAvatar(binding.ivProfileAvatar, profileUri)
         PetImageUtils.loadUserAvatar(binding.ivUserHeaderAvatar, profileUri)
@@ -238,7 +241,7 @@ class MainActivity : AppCompatActivity() {
 
                 launch {
                     viewModel.activityLogsForSelectedPet.collect { logs ->
-                        logAdapter.submitList(logs.take(5))
+                        logAdapter.submitList(logs.take(6))
                     }
                 }
 
@@ -255,6 +258,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupClickListeners() {
+        binding.ivUserHeaderAvatar.setOnClickListener {
+            binding.bottomNavigation.selectedItemId = R.id.nav_profile
+        }
+
         binding.btnViewHeroProfile.setOnClickListener {
             val petId = viewModel.selectedPetId.value
             if (petId != null) openPetDetail(petId) else launchAddPetWizard()
@@ -269,10 +276,11 @@ class MainActivity : AppCompatActivity() {
         binding.btnAddPetTab.setOnClickListener { launchAddPetWizard() }
 
         binding.btnLogActivity.setOnClickListener { showLogActivityDialog() }
+        binding.btnQuickDelegate.setOnClickListener { startActivity(Intent(this, DelegateActivity::class.java)) }
         binding.btnExploreMapQuick.setOnClickListener { startActivity(Intent(this, PetMapActivity::class.java)) }
 
-        binding.btnDelegateCare.setOnClickListener {
-            startActivity(Intent(this, DelegateActivity::class.java))
+        binding.btnViewAllActivity.setOnClickListener {
+            binding.bottomNavigation.selectedItemId = R.id.nav_plan
         }
 
         binding.btnChangeProfilePhoto.setOnClickListener {
@@ -463,6 +471,25 @@ class MainActivity : AppCompatActivity() {
             return
         }
         val dialogBinding = DialogAddTaskBinding.inflate(layoutInflater)
+
+        dialogBinding.etTaskDueDate.setOnClickListener {
+            val picker = MaterialTimePicker.Builder()
+                .setTimeFormat(TimeFormat.CLOCK_12H)
+                .setHour(8)
+                .setMinute(0)
+                .setTitleText("Select Due Time")
+                .build()
+            picker.addOnPositiveButtonClickListener {
+                val formatted = String.format(Locale.getDefault(), "%02d:%02d %s",
+                    if (picker.hour % 12 == 0) 12 else picker.hour % 12,
+                    picker.minute,
+                    if (picker.hour >= 12) "PM" else "AM"
+                )
+                dialogBinding.etTaskDueDate.setText(formatted)
+            }
+            picker.show(supportFragmentManager, "time_picker")
+        }
+
         MaterialAlertDialogBuilder(this)
             .setView(dialogBinding.root)
             .setPositiveButton("Add Task") { _, _ ->
@@ -472,11 +499,11 @@ class MainActivity : AppCompatActivity() {
                         petId = petId,
                         title = title,
                         category = dialogBinding.etTaskCategory.text.toString().trim().ifEmpty { "General" },
-                        dueDate = dialogBinding.etTaskDueDate.text.toString().trim().ifEmpty { "Today" },
+                        dueDate = dialogBinding.etTaskDueDate.text.toString().trim().ifEmpty { "08:00 AM" },
                         description = ""
                     )
                     viewModel.addTask(task)
-                    Toast.makeText(this, "Task added", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Task added for pet", Toast.LENGTH_SHORT).show()
                 }
             }
             .setNegativeButton("Cancel", null)
@@ -490,6 +517,25 @@ class MainActivity : AppCompatActivity() {
             return
         }
         val dialogBinding = DialogAddReminderBinding.inflate(layoutInflater)
+
+        dialogBinding.etReminderTime.setOnClickListener {
+            val picker = MaterialTimePicker.Builder()
+                .setTimeFormat(TimeFormat.CLOCK_12H)
+                .setHour(9)
+                .setMinute(0)
+                .setTitleText("Select Reminder Time")
+                .build()
+            picker.addOnPositiveButtonClickListener {
+                val formatted = String.format(Locale.getDefault(), "%02d:%02d %s",
+                    if (picker.hour % 12 == 0) 12 else picker.hour % 12,
+                    picker.minute,
+                    if (picker.hour >= 12) "PM" else "AM"
+                )
+                dialogBinding.etReminderTime.setText(formatted)
+            }
+            picker.show(supportFragmentManager, "time_picker_reminder")
+        }
+
         MaterialAlertDialogBuilder(this)
             .setView(dialogBinding.root)
             .setPositiveButton("Add Reminder") { _, _ ->
@@ -499,7 +545,7 @@ class MainActivity : AppCompatActivity() {
                         petId = petId,
                         title = title,
                         type = dialogBinding.etReminderType.text.toString().trim().ifEmpty { "General" },
-                        dateTime = dialogBinding.etReminderTime.text.toString().trim().ifEmpty { "08:00 AM" }
+                        dateTime = dialogBinding.etReminderTime.text.toString().trim().ifEmpty { "09:00 AM" }
                     )
                     viewModel.addReminder(reminder)
                     Toast.makeText(this, "Reminder saved", Toast.LENGTH_SHORT).show()
@@ -516,6 +562,18 @@ class MainActivity : AppCompatActivity() {
             return
         }
         val dialogBinding = DialogAddAppointmentBinding.inflate(layoutInflater)
+
+        dialogBinding.etAppointmentTime.setOnClickListener {
+            val datePicker = MaterialDatePicker.Builder.datePicker()
+                .setTitleText("Select Appointment Date")
+                .build()
+            datePicker.addOnPositiveButtonClickListener { selection ->
+                val sdf = SimpleDateFormat("MMM dd, yyyy", Locale.getDefault())
+                dialogBinding.etAppointmentTime.setText(sdf.format(Date(selection)))
+            }
+            datePicker.show(supportFragmentManager, "date_picker_appt")
+        }
+
         MaterialAlertDialogBuilder(this)
             .setView(dialogBinding.root)
             .setPositiveButton("Add Appointment") { _, _ ->
@@ -542,6 +600,18 @@ class MainActivity : AppCompatActivity() {
             return
         }
         val dialogBinding = DialogAddVaccinationBinding.inflate(layoutInflater)
+
+        dialogBinding.etVaccineNextDue.setOnClickListener {
+            val datePicker = MaterialDatePicker.Builder.datePicker()
+                .setTitleText("Select Next Due Date")
+                .build()
+            datePicker.addOnPositiveButtonClickListener { selection ->
+                val sdf = SimpleDateFormat("MMM dd, yyyy", Locale.getDefault())
+                dialogBinding.etVaccineNextDue.setText(sdf.format(Date(selection)))
+            }
+            datePicker.show(supportFragmentManager, "date_picker_vac")
+        }
+
         MaterialAlertDialogBuilder(this)
             .setView(dialogBinding.root)
             .setPositiveButton("Add Vaccination") { _, _ ->
@@ -567,19 +637,30 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(this, "Please add a pet first", Toast.LENGTH_SHORT).show()
             return
         }
-        val activities = arrayOf("Walk", "Feeding", "Grooming", "Medication", "Play", "Training")
+        val dialogBinding = DialogLogActivityBinding.inflate(layoutInflater)
+
         MaterialAlertDialogBuilder(this)
-            .setTitle("Log Activity")
-            .setItems(activities) { _, which ->
-                val selectedType = activities[which]
+            .setView(dialogBinding.root)
+            .setPositiveButton("Save Activity") { _, _ ->
+                val checkedChipId = dialogBinding.chipGroupActivityType.checkedChipId
+                val selectedType = if (checkedChipId != View.NO_ID) {
+                    dialogBinding.root.findViewById<Chip>(checkedChipId).text.toString().replace(Regex("[^a-zA-Z\\s]"), "").trim()
+                } else "Walk"
+
+                val durationStr = dialogBinding.etActivityDuration.text.toString().trim()
+                val duration = durationStr.toIntOrNull() ?: 20
+                val notes = dialogBinding.etActivityNotes.text.toString().trim().ifEmpty { "Routine activity logged" }
+
                 val log = ActivityLogEntity(
                     petId = petId,
                     type = selectedType,
-                    notes = "Daily routine logged"
+                    duration = duration,
+                    notes = notes
                 )
                 viewModel.addActivityLog(log)
-                Toast.makeText(this, "$selectedType logged", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "$selectedType logged 🐾", Toast.LENGTH_SHORT).show()
             }
+            .setNegativeButton("Cancel", null)
             .show()
     }
 

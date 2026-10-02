@@ -10,9 +10,11 @@ import androidx.lifecycle.lifecycleScope
 import com.petcare.app.R
 import com.petcare.app.data.local.AppDatabase
 import com.petcare.app.databinding.ActivityLoginBinding
+import com.petcare.app.databinding.DialogForgotPasswordBinding
 import com.petcare.app.ui.dashboard.MainActivity
 import com.petcare.app.util.SecurityUtils
 import com.petcare.app.util.SessionManager
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.coroutines.launch
 
 class LoginActivity : AppCompatActivity() {
@@ -62,14 +64,49 @@ class LoginActivity : AppCompatActivity() {
             }
         }
 
-        binding.btnGoogleSignIn.setOnClickListener {
-            Toast.makeText(this, "Google Sign-In integration ready for future setup", Toast.LENGTH_SHORT).show()
+        binding.tvForgotPassword.setOnClickListener {
+            showForgotPasswordDialog()
         }
 
         binding.tvSignUp.setOnClickListener {
             val intent = Intent(this, SignUpActivity::class.java)
             startActivity(intent)
         }
+    }
+
+    private fun showForgotPasswordDialog() {
+        val dialogBinding = DialogForgotPasswordBinding.inflate(layoutInflater)
+        MaterialAlertDialogBuilder(this)
+            .setView(dialogBinding.root)
+            .setPositiveButton("Reset Password") { _, _ ->
+                val email = dialogBinding.etResetEmail.text.toString().trim()
+                val newPass = dialogBinding.etResetNewPassword.text.toString().trim()
+
+                if (email.isEmpty() || !Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                    Toast.makeText(this, "Please enter a valid email", Toast.LENGTH_SHORT).show()
+                    return@setPositiveButton
+                }
+
+                if (newPass.length < 6) {
+                    Toast.makeText(this, "New password must be at least 6 characters", Toast.LENGTH_SHORT).show()
+                    return@setPositiveButton
+                }
+
+                lifecycleScope.launch {
+                    val db = AppDatabase.getDatabase(applicationContext)
+                    val user = db.userDao().getUserByEmail(email)
+
+                    if (user != null) {
+                        val newHash = SecurityUtils.hashPassword(newPass)
+                        db.userDao().updateUser(user.copy(passwordHash = newHash))
+                        Toast.makeText(this@LoginActivity, "Password reset successfully! Please sign in.", Toast.LENGTH_LONG).show()
+                    } else {
+                        Toast.makeText(this@LoginActivity, "No account found with that email address", Toast.LENGTH_LONG).show()
+                    }
+                }
+            }
+            .setNegativeButton("Cancel", null)
+            .show()
     }
 
     private fun validateInputs(email: String, pass: String): Boolean {
