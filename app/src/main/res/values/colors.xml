@@ -1,71 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- 2026 Modern Light & Friendly PetCare Palette -->
-    <color name="background_obsidian">#FAFAF8</color>
-    <color name="near_black">#FAFAF8</color>
-    <color name="background_cream">#FAFAF8</color>
-    <color name="cream_background">#FAFAF8</color>
+    <!--
+        PetCare palette: warm, friendly, trustworthy.
+        Primary is a deep pumpkin orange (4.7:1 with white text); the lighter "accent" orange
+        is only used for decoration, never for text.
+    -->
 
-    <!-- Surfaces & Cards -->
-    <color name="surface_primary">#FFFFFF</color>
-    <color name="surface_elevated">#F1F5F9</color>
-    <color name="surface_light">#E2E8F0</color>
+    <!-- Brand -->
+    <color name="primary">#BF5317</color>
+    <color name="on_primary">#FFFFFF</color>
+    <color name="primary_container">#FFE9DA</color>
+    <color name="on_primary_container">#5A2408</color>
+    <color name="accent">#FF9A4D</color>
+
+    <color name="secondary">#1F2A44</color>
+    <color name="on_secondary">#FFFFFF</color>
+    <color name="secondary_container">#E9EDF7</color>
+    <color name="on_secondary_container">#1F2A44</color>
+
+    <!-- Surfaces -->
+    <color name="background">#FBF7F2</color>
     <color name="surface">#FFFFFF</color>
-    <color name="elevated_surface">#F1F5F9</color>
-    <color name="surface_white">#FFFFFF</color>
-    <color name="soft_sage_surface">#F0FDF4</color>
-    <color name="surface_sage_soft">#F0FDF4</color>
+    <color name="surface_variant">#F5EFE8</color>
+    <color name="outline">#E9E0D6</color>
+    <color name="divider">#F0E9E1</color>
+    <color name="scrim">#801F2A44</color>
 
-    <!-- Brand Emerald & Accents -->
-    <color name="deep_primary">#0F766E</color>
-    <color name="primary_green">#0D9488</color>
-    <color name="primary_deep">#0F766E</color>
-    <color name="brand_green">#0D9488</color>
-    <color name="fresh_green">#10B981</color>
-    <color name="soft_mint">#D1FAE5</color>
-    <color name="mint_highlight">#D1FAE5</color>
-    <color name="mint_accent">#D1FAE5</color>
-    <color name="vibrant_teal">#0D9488</color>
-    <color name="bright_mint_accent">#10B981</color>
-    <color name="sage">#CBD5E1</color>
-    <color name="soft_sage">#CBD5E1</color>
-    <color name="deep_green">#0F766E</color>
-    <color name="blue_green_deep">#0F766E</color>
-    <color name="primary_green_alt">#0D9488</color>
+    <!-- Text -->
+    <color name="text_primary">#1F2333</color>
+    <color name="text_secondary">#5F6474</color>
+    <color name="text_hint">#8E92A0</color>
+    <color name="text_on_dark">#FFFFFF</color>
 
-    <!-- Warm Accents -->
-    <color name="amber_warm">#F59E0B</color>
-    <color name="amber">#F59E0B</color>
-    <color name="golden_accent">#F59E0B</color>
-    <color name="golden_accent_alt">#F59E0B</color>
-    <color name="coral_warm">#F97316</color>
-    <color name="warm_coral_accent">#F97316</color>
+    <!-- Status -->
+    <color name="success">#1E8A5A</color>
+    <color name="success_container">#E2F4EA</color>
+    <color name="warning">#9A6400</color>
+    <color name="warning_container">#FFF1D6</color>
+    <color name="error">#C9353B</color>
+    <color name="error_container">#FDE6E6</color>
+    <color name="info">#2F62C8</color>
+    <color name="info_container">#E6EEFD</color>
 
-    <!-- High-Contrast Text Colors -->
-    <color name="text_primary">#0F172A</color>
-    <color name="primary_text">#0F172A</color>
-    <color name="text_dark">#0F172A</color>
-    <color name="text_dark_alt">#0F172A</color>
-
-    <color name="text_secondary">#475569</color>
-    <color name="secondary_text">#475569</color>
-    <color name="text_secondary_alt">#475569</color>
-
-    <color name="text_muted">#64748B</color>
-    <color name="muted_text">#64748B</color>
-
-    <color name="text_on_primary">#FFFFFF</color>
-    <color name="cream_text">#FFFFFF</color>
-
-    <!-- Functional States -->
-    <color name="success_green">#10B981</color>
-    <color name="success">#10B981</color>
-    <color name="error_red">#EF4444</color>
-    <color name="error">#EF4444</color>
-
-    <!-- Overlays & Basics -->
-    <color name="backdrop_overlay">#660F172A</color>
     <color name="white">#FFFFFF</color>
-    <color name="black">#000000</color>
-    <color name="transparent">#00000000</color>
 </resources>

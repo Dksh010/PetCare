@@ -1,55 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="24dp">
+    android:padding="@dimen/space_2xl">
 
     <TextView
+        android:id="@+id/tvDialogTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:text="@string/action_add_appointment"
-        android:textColor="@color/brand_green"
-        android:textSize="20sp"
-        android:textStyle="bold" />
+        android:layout_marginBottom="@dimen/space_lg"
+        android:text="@string/dialog_new_appointment"
+        android:textAppearance="@style/TextAppearance.PetCare.Title" />
 
     <com.google.android.material.textfield.TextInputLayout
-        style="@style/PetCareTextField"
+        android:id="@+id/tilAppointmentTitle"
+        style="@style/Widget.PetCare.TextField"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp"
+        android:layout_marginBottom="@dimen/space_md"
         android:hint="@string/hint_appointment_title">
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etAppointmentTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/text_primary" />
+            android:inputType="textCapSentences" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        style="@style/PetCareTextField"
+        style="@style/Widget.PetCare.TextField"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp"
+        android:layout_marginBottom="@dimen/space_md"
         android:hint="@string/hint_appointment_clinic">
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etAppointmentClinic"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/text_primary" />
+            android:inputType="textCapWords" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        style="@style/PetCareTextField"
+        style="@style/Widget.PetCare.TextField"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/hint_task_due_date">
+        android:layout_marginBottom="@dimen/space_md"
+        android:hint="Date and time">
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etAppointmentTime"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/text_primary" />
+            android:focusable="false"
+            android:inputType="none" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.PetCare.TextField.Dropdown"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="📍 Tagged place (optional)"
+        app:helperText="Tag new places by long-pressing the map in Explore">
+        <com.google.android.material.textfield.MaterialAutoCompleteTextView
+            android:id="@+id/actvAppointmentPlace"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="none" />
     </com.google.android.material.textfield.TextInputLayout>
 
 </LinearLayout>

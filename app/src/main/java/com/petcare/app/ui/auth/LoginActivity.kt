@@ -12,6 +12,7 @@ import com.petcare.app.data.local.AppDatabase
 import com.petcare.app.databinding.ActivityLoginBinding
 import com.petcare.app.databinding.DialogForgotPasswordBinding
 import com.petcare.app.ui.dashboard.MainActivity
+import com.petcare.app.util.Constants
 import com.petcare.app.util.SecurityUtils
 import com.petcare.app.util.SessionManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -34,6 +35,11 @@ class LoginActivity : AppCompatActivity() {
             return
         }
 
+        intent.getStringExtra(Constants.EXTRA_EMAIL)?.let {
+            binding.etEmail.setText(it)
+            binding.etPassword.requestFocus()
+        }
+
         setupTextChangeListeners()
         setupClickListeners()
     }
@@ -45,7 +51,7 @@ class LoginActivity : AppCompatActivity() {
 
     private fun setupClickListeners() {
         binding.btnLogin.setOnClickListener {
-            val email = binding.etEmail.text.toString().trim()
+            val email = binding.etEmail.text.toString().trim().lowercase()
             val password = binding.etPassword.text.toString().trim()
 
             if (validateInputs(email, password)) {
@@ -79,7 +85,8 @@ class LoginActivity : AppCompatActivity() {
         MaterialAlertDialogBuilder(this)
             .setView(dialogBinding.root)
             .setPositiveButton("Reset Password") { _, _ ->
-                val email = dialogBinding.etResetEmail.text.toString().trim()
+                val email = dialogBinding.etResetEmail.text.toString().trim().lowercase()
+                val name = dialogBinding.etResetName.text.toString().trim()
                 val newPass = dialogBinding.etResetNewPassword.text.toString().trim()
 
                 if (email.isEmpty() || !Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
@@ -96,12 +103,13 @@ class LoginActivity : AppCompatActivity() {
                     val db = AppDatabase.getDatabase(applicationContext)
                     val user = db.userDao().getUserByEmail(email)
 
-                    if (user != null) {
+                    // Ask for the account name as well so knowing an email alone is not enough.
+                    if (user != null && user.name.equals(name, ignoreCase = true)) {
                         val newHash = SecurityUtils.hashPassword(newPass)
                         db.userDao().updateUser(user.copy(passwordHash = newHash))
                         Toast.makeText(this@LoginActivity, "Password reset successfully! Please sign in.", Toast.LENGTH_LONG).show()
                     } else {
-                        Toast.makeText(this@LoginActivity, "No account found with that email address", Toast.LENGTH_LONG).show()
+                        Toast.makeText(this@LoginActivity, "No account matches that email and name", Toast.LENGTH_LONG).show()
                     }
                 }
             }

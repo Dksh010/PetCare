@@ -4,194 +4,38 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import androidx.room.migration.Migration
-import androidx.sqlite.db.SupportSQLiteDatabase
 import com.petcare.app.data.model.*
 
 @Database(
     entities = [
         UserEntity::class,
         PetEntity::class,
+        RoutineEntity::class,
         TaskEntity::class,
         ReminderEntity::class,
         AppointmentEntity::class,
         ActivityLogEntity::class,
         VaccinationEntity::class,
-        CareTaskEntity::class,
         LocationEntity::class
     ],
-    version = 6,
+    version = 7,
     exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun userDao(): UserDao
     abstract fun petDao(): PetDao
+    abstract fun routineDao(): RoutineDao
     abstract fun taskDao(): TaskDao
     abstract fun reminderDao(): ReminderDao
     abstract fun appointmentDao(): AppointmentDao
     abstract fun activityLogDao(): ActivityLogDao
     abstract fun vaccinationDao(): VaccinationDao
-    abstract fun careTaskDao(): CareTaskDao
     abstract fun locationDao(): LocationDao
 
     companion object {
         @Volatile
         private var INSTANCE: AppDatabase? = null
-
-        private val MIGRATION_1_2 = object : Migration(1, 2) {
-            override fun migrate(db: SupportSQLiteDatabase) {
-                db.execSQL("ALTER TABLE pets ADD COLUMN image_uri TEXT")
-                db.execSQL("ALTER TABLE pets ADD COLUMN weight TEXT NOT NULL DEFAULT ''")
-                db.execSQL("ALTER TABLE pets ADD COLUMN dietary_prefs TEXT NOT NULL DEFAULT ''")
-                db.execSQL("ALTER TABLE pets ADD COLUMN vaccination_history TEXT NOT NULL DEFAULT ''")
-                db.execSQL("ALTER TABLE pets ADD COLUMN allergies TEXT NOT NULL DEFAULT ''")
-                db.execSQL("ALTER TABLE pets ADD COLUMN favorite_toys TEXT NOT NULL DEFAULT ''")
-            }
-        }
-
-        private val MIGRATION_2_3 = object : Migration(2, 3) {
-            override fun migrate(db: SupportSQLiteDatabase) {
-                // Add new columns to pets table
-                db.execSQL("ALTER TABLE pets ADD COLUMN gender TEXT NOT NULL DEFAULT ''")
-                db.execSQL("ALTER TABLE pets ADD COLUMN birthday TEXT NOT NULL DEFAULT ''")
-                db.execSQL("ALTER TABLE pets ADD COLUMN sterilized INTEGER NOT NULL DEFAULT 0")
-                db.execSQL("ALTER TABLE pets ADD COLUMN fur_color TEXT NOT NULL DEFAULT ''")
-                db.execSQL("ALTER TABLE pets ADD COLUMN body_size TEXT NOT NULL DEFAULT 'Medium'")
-                db.execSQL("ALTER TABLE pets ADD COLUMN dietary_restrictions TEXT NOT NULL DEFAULT ''")
-                db.execSQL("ALTER TABLE pets ADD COLUMN current_medications TEXT NOT NULL DEFAULT ''")
-                db.execSQL("ALTER TABLE pets ADD COLUMN medical_conditions TEXT NOT NULL DEFAULT ''")
-                db.execSQL("ALTER TABLE pets ADD COLUMN emergency_contact_name TEXT NOT NULL DEFAULT ''")
-                db.execSQL("ALTER TABLE pets ADD COLUMN emergency_contact_phone TEXT NOT NULL DEFAULT ''")
-                db.execSQL("ALTER TABLE pets ADD COLUMN emergency_contact_relationship TEXT NOT NULL DEFAULT ''")
-                db.execSQL("ALTER TABLE pets ADD COLUMN veterinarian_name TEXT NOT NULL DEFAULT ''")
-                db.execSQL("ALTER TABLE pets ADD COLUMN veterinarian_clinic TEXT NOT NULL DEFAULT ''")
-                db.execSQL("ALTER TABLE pets ADD COLUMN veterinarian_phone TEXT NOT NULL DEFAULT ''")
-                db.execSQL("ALTER TABLE pets ADD COLUMN created_at INTEGER NOT NULL DEFAULT 0")
-                db.execSQL("ALTER TABLE pets ADD COLUMN updated_at INTEGER NOT NULL DEFAULT 0")
-
-                // Create users table
-                db.execSQL("""
-                    CREATE TABLE IF NOT EXISTS `users` (
-                        `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-                        `name` TEXT NOT NULL,
-                        `email` TEXT NOT NULL,
-                        `password_hash` TEXT NOT NULL,
-                        `created_at` INTEGER NOT NULL,
-                        `updated_at` INTEGER NOT NULL
-                    )
-                """.trimIndent())
-
-                // Create reminders table
-                db.execSQL("""
-                    CREATE TABLE IF NOT EXISTS `reminders` (
-                        `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-                        `pet_id` INTEGER NOT NULL,
-                        `title` TEXT NOT NULL,
-                        `type` TEXT NOT NULL,
-                        `date_time` TEXT NOT NULL,
-                        `notes` TEXT NOT NULL,
-                        `is_completed` INTEGER NOT NULL,
-                        `is_recurring` INTEGER NOT NULL,
-                        `created_at` INTEGER NOT NULL,
-                        FOREIGN KEY(`pet_id`) REFERENCES `pets`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE
-                    )
-                """.trimIndent())
-                db.execSQL("CREATE INDEX IF NOT EXISTS `index_reminders_pet_id` ON `reminders` (`pet_id`)")
-
-                // Create appointments table
-                db.execSQL("""
-                    CREATE TABLE IF NOT EXISTS `appointments` (
-                        `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-                        `pet_id` INTEGER NOT NULL,
-                        `title` TEXT NOT NULL,
-                        `clinic` TEXT NOT NULL,
-                        `date_time` TEXT NOT NULL,
-                        `notes` TEXT NOT NULL,
-                        `status` TEXT NOT NULL,
-                        FOREIGN KEY(`pet_id`) REFERENCES `pets`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE
-                    )
-                """.trimIndent())
-                db.execSQL("CREATE INDEX IF NOT EXISTS `index_appointments_pet_id` ON `appointments` (`pet_id`)")
-
-                // Create activity_logs table
-                db.execSQL("""
-                    CREATE TABLE IF NOT EXISTS `activity_logs` (
-                        `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-                        `pet_id` INTEGER NOT NULL,
-                        `type` TEXT NOT NULL,
-                        `timestamp` INTEGER NOT NULL,
-                        `duration` INTEGER NOT NULL,
-                        `notes` TEXT NOT NULL,
-                        FOREIGN KEY(`pet_id`) REFERENCES `pets`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE
-                    )
-                """.trimIndent())
-                db.execSQL("CREATE INDEX IF NOT EXISTS `index_activity_logs_pet_id` ON `activity_logs` (`pet_id`)")
-
-                // Create vaccinations table
-                db.execSQL("""
-                    CREATE TABLE IF NOT EXISTS `vaccinations` (
-                        `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-                        `pet_id` INTEGER NOT NULL,
-                        `vaccine_name` TEXT NOT NULL,
-                        `date_given` TEXT NOT NULL,
-                        `next_due_date` TEXT NOT NULL,
-                        `notes` TEXT NOT NULL,
-                        FOREIGN KEY(`pet_id`) REFERENCES `pets`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE
-                    )
-                """.trimIndent())
-                db.execSQL("CREATE INDEX IF NOT EXISTS `index_vaccinations_pet_id` ON `vaccinations` (`pet_id`)")
-            }
-        }
-
-        private val MIGRATION_3_4 = object : Migration(3, 4) {
-            override fun migrate(db: SupportSQLiteDatabase) {
-                db.execSQL("ALTER TABLE pets ADD COLUMN user_id INTEGER NOT NULL DEFAULT 1")
-            }
-        }
-
-        private val MIGRATION_4_5 = object : Migration(4, 5) {
-            override fun migrate(db: SupportSQLiteDatabase) {
-                db.execSQL("ALTER TABLE users ADD COLUMN profile_image_uri TEXT")
-            }
-        }
-
-        private val MIGRATION_5_6 = object : Migration(5, 6) {
-            override fun migrate(db: SupportSQLiteDatabase) {
-                // Create care_tasks table
-                db.execSQL("""
-                    CREATE TABLE IF NOT EXISTS `care_tasks` (
-                        `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-                        `pet_id` INTEGER NOT NULL,
-                        `title` TEXT NOT NULL,
-                        `description` TEXT NOT NULL,
-                        `task_type` TEXT NOT NULL,
-                        `schedule_type` TEXT NOT NULL,
-                        `time_of_day` TEXT NOT NULL,
-                        `days_of_week` TEXT NOT NULL,
-                        `is_completed` INTEGER NOT NULL DEFAULT 0,
-                        `last_completed` INTEGER NOT NULL DEFAULT 0,
-                        `created_at` INTEGER NOT NULL,
-                        `updated_at` INTEGER NOT NULL,
-                        FOREIGN KEY(`pet_id`) REFERENCES `pets`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE
-                    )
-                """.trimIndent())
-                db.execSQL("CREATE INDEX IF NOT EXISTS `index_care_tasks_pet_id` ON `care_tasks` (`pet_id`)")
-
-                // Create locations table
-                db.execSQL("""
-                    CREATE TABLE IF NOT EXISTS `locations` (
-                        `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-                        `name` TEXT NOT NULL,
-                        `address` TEXT NOT NULL,
-                        `latitude` REAL NOT NULL,
-                        `longitude` REAL NOT NULL,
-                        `location_type` TEXT NOT NULL,
-                        `created_at` INTEGER NOT NULL
-                    )
-                """.trimIndent())
-            }
-        }
 
         fun getDatabase(context: Context): AppDatabase {
             return INSTANCE ?: synchronized(this) {
@@ -200,7 +44,8 @@ abstract class AppDatabase : RoomDatabase() {
                     AppDatabase::class.java,
                     "pet_care_database"
                 )
-                    .addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5, MIGRATION_5_6)
+                    // Schema was redesigned in v7; older development databases are rebuilt.
+                    .fallbackToDestructiveMigration(dropAllTables = true)
                     .build()
                 INSTANCE = instance
                 instance

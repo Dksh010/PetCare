@@ -31,17 +31,14 @@ data class ReminderEntity(
     @ColumnInfo(name = "type")
     val type: String, // e.g., Feeding, Medication, Vaccination
 
-    @ColumnInfo(name = "date_time")
-    val dateTime: String,
+    @ColumnInfo(name = "time") // 24h HH:mm
+    val time: String,
 
     @ColumnInfo(name = "notes")
     val notes: String = "",
 
     @ColumnInfo(name = "is_completed")
     val isCompleted: Boolean = false,
-
-    @ColumnInfo(name = "is_recurring")
-    val isRecurring: Boolean = false,
 
     @ColumnInfo(name = "created_at")
     val createdAt: Long = System.currentTimeMillis()

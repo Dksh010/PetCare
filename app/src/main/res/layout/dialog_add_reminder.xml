@@ -4,53 +4,67 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="24dp">
+    android:padding="@dimen/space_2xl">
 
     <TextView
+        android:id="@+id/tvDialogTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:text="@string/action_add_reminder"
-        android:textColor="@color/brand_green"
-        android:textSize="20sp"
-        android:textStyle="bold" />
+        android:layout_marginBottom="@dimen/space_lg"
+        android:text="@string/dialog_new_reminder"
+        android:textAppearance="@style/TextAppearance.PetCare.Title" />
 
     <com.google.android.material.textfield.TextInputLayout
-        style="@style/PetCareTextField"
+        android:id="@+id/tilReminderTitle"
+        style="@style/Widget.PetCare.TextField"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp"
+        android:layout_marginBottom="@dimen/space_md"
         android:hint="@string/hint_reminder_title">
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etReminderTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/text_primary" />
+            android:inputType="textCapSentences" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        style="@style/PetCareTextField"
+        style="@style/Widget.PetCare.TextField.Dropdown"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp"
+        android:layout_marginBottom="@dimen/space_md"
         android:hint="@string/hint_reminder_type">
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etReminderType"
+        <com.google.android.material.textfield.MaterialAutoCompleteTextView
+            android:id="@+id/actvReminderType"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/text_primary" />
+            android:inputType="none" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        style="@style/PetCareTextField"
+        style="@style/Widget.PetCare.TextField"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/hint_task_due_date">
+        android:layout_marginBottom="@dimen/space_md"
+        android:hint="Time">
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etReminderTime"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/text_primary" />
+            android:focusable="false"
+            android:inputType="none" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.PetCare.TextField"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Notes (optional)">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etReminderNotes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textCapSentences" />
     </com.google.android.material.textfield.TextInputLayout>
 
 </LinearLayout>

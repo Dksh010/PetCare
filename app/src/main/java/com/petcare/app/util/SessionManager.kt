@@ -16,7 +16,6 @@ class SessionManager(context: Context) {
         private const val KEY_IS_LOGGED_IN = "is_logged_in"
         private const val KEY_USER_EMAIL = "user_email"
         private const val KEY_USER_ID = "user_id"
-        private const val KEY_PROFILE_IMAGE_URI = "profile_image_uri"
     }
 
     /**
@@ -30,12 +29,6 @@ class SessionManager(context: Context) {
             apply()
         }
     }
-
-    fun saveProfileImageUri(uri: String?) {
-        prefs.edit().putString(KEY_PROFILE_IMAGE_URI, uri).apply()
-    }
-
-    fun getProfileImageUri(): String? = prefs.getString(KEY_PROFILE_IMAGE_URI, null)
 
     /**
      * Returns true if a valid user session exists.

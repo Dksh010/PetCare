@@ -29,10 +29,10 @@ data class VaccinationEntity(
     val vaccineName: String,
 
     @ColumnInfo(name = "date_given")
-    val dateGiven: String,
+    val dateGiven: Long = System.currentTimeMillis(),
 
     @ColumnInfo(name = "next_due_date")
-    val nextDueDate: String,
+    val nextDueDate: Long,
 
     @ColumnInfo(name = "notes")
     val notes: String = ""

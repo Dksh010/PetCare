@@ -1,46 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Recent activity row: icon tile, type + notes (+ place), time. -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:gravity="center_vertical"
     android:orientation="horizontal"
-    android:paddingVertical="12dp"
-    android:gravity="center_vertical">
+    android:paddingTop="@dimen/space_sm"
+    android:paddingBottom="@dimen/space_sm">
 
-    <View
-        android:layout_width="8dp"
-        android:layout_height="8dp"
-        android:background="@drawable/ic_check"
-        android:backgroundTint="@color/brand_green" />
+    <ImageView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@drawable/bg_icon_tile"
+        android:backgroundTint="@color/success_container"
+        android:contentDescription="@null"
+        android:padding="10dp"
+        android:src="@drawable/ic_activity"
+        app:tint="@color/success" />
 
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/space_md"
         android:layout_weight="1"
-        android:layout_marginStart="16dp"
         android:orientation="vertical">
+
         <TextView
             android:id="@+id/tvActivityType"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/text_primary"
-            android:textStyle="bold"
-            tools:text="Walk" />
+            android:textAppearance="@style/TextAppearance.PetCare.Body.Medium"
+            tools:text="Walk · 30 min" />
+
         <TextView
             android:id="@+id/tvActivityNotes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/text_secondary"
-            android:textSize="12sp"
-            tools:text="30 min in the park" />
+            android:textAppearance="@style/TextAppearance.PetCare.Caption"
+            tools:text="Max was very active today!" />
     </LinearLayout>
 
     <TextView
         android:id="@+id/tvActivityTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/text_muted"
-        android:textSize="11sp"
-        tools:text="10:30 AM" />
-
+        android:layout_marginStart="@dimen/space_sm"
+        android:textAppearance="@style/TextAppearance.PetCare.Caption"
+        android:textColor="@color/text_hint"
+        tools:text="Oct 2, 9:30 AM" />
 </LinearLayout>

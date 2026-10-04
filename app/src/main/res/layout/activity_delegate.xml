@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background_obsidian"
+    android:background="@color/background"
     android:fillViewport="true"
     tools:context=".ui.delegate.DelegateActivity">
 
@@ -12,90 +12,148 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="24dp">
+        android:padding="@dimen/space_2xl">
+
+        <ImageButton
+            android:id="@+id/btnDelegateBack"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Back"
+            android:src="@drawable/ic_back"
+            app:tint="@color/text_primary" />
 
         <TextView
             android:id="@+id/tvDelegateTitle"
-            style="@style/TextAppearance.PetCare.HeadlineMedium"
+            style="@style/PetCare.Text.ScreenTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Share Care Plan" />
+            android:layout_marginTop="@dimen/space_sm"
+            android:text="Delegate Pet Care" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:text="Send detailed instructions to your pet sitter."
+            android:layout_marginTop="@dimen/space_xs"
+            android:text="Send a care checklist, feeding schedule, medication reminder or daily routine by SMS to a sitter, family member or friend."
             android:textColor="@color/text_secondary"
-            android:textSize="15sp" />
+            android:textAppearance="@style/TextAppearance.PetCare.Body" />
 
         <com.google.android.material.textfield.TextInputLayout
-            style="@style/PetCareTextField"
+            style="@style/Widget.PetCare.TextField.Dropdown"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="@dimen/space_2xl"
             android:hint="Select Companion">
-            <AutoCompleteTextView
+            <com.google.android.material.textfield.MaterialAutoCompleteTextView
                 android:id="@+id/actvSelectPet"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/text_primary"
-                android:inputType="none" />
+                android:inputType="none"
+                android:textColor="@color/text_primary" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/PetCareTextField"
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_xl"
+            android:text="What do you want to send?"
+            android:textColor="@color/text_primary"
+            android:textAppearance="@style/TextAppearance.PetCare.Subtitle" />
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chipGroupMessageType"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:hint="Sitter Phone Number">
+            android:layout_marginTop="@dimen/space_sm"
+            app:selectionRequired="true"
+            app:singleSelection="true">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipTypeChecklist"
+                style="@style/Widget.PetCare.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="📋 Care checklist" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipTypeFeeding"
+                style="@style/Widget.PetCare.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="🍚 Feeding schedule" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipTypeMedication"
+                style="@style/Widget.PetCare.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="💊 Medication reminder" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipTypeRoutine"
+                style="@style/Widget.PetCare.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="🗓️ Daily care routine" />
+        </com.google.android.material.chip.ChipGroup>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilCaregiverPhone"
+            style="@style/Widget.PetCare.TextField"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_xl"
+            android:hint="Phone number"
+            app:endIconContentDescription="Pick from contacts"
+            app:endIconDrawable="@drawable/ic_person"
+            app:endIconMode="custom"
+            app:helperText="Type a number or tap the icon to pick a contact">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etCaregiverPhone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/text_primary"
-                android:inputType="phone" />
+                android:inputType="phone"
+                android:textColor="@color/text_primary" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.card.MaterialCardView
+        <TextView
+            android:id="@+id/tvContactName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_xs"
+            android:textColor="@color/primary"
+            android:textAppearance="@style/TextAppearance.PetCare.Caption"
+            android:visibility="gone"
+            tools:text="Sending to: Daniel"
+            tools:visibility="visible" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.PetCare.TextField"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            app:cardBackgroundColor="@color/surface_primary"
-            app:cardCornerRadius="24dp"
-            app:strokeColor="@color/surface_elevated"
-            app:strokeWidth="1dp">
-            <LinearLayout
+            android:layout_marginTop="@dimen/space_xl"
+            android:hint="Message (you can edit it)">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etMessage"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="20dp">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Message Review"
-                    android:textColor="@color/brand_green"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
-                <TextView
-                    android:id="@+id/tvPayloadPreview"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
-                    android:text="Choose a companion to review instructions..."
-                    android:textColor="@color/text_secondary"
-                    android:textSize="14sp"
-                    android:lineSpacingExtra="4dp" />
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
+                android:gravity="top"
+                android:inputType="textMultiLine|textCapSentences"
+                android:lineSpacingExtra="4dp"
+                android:minLines="8"
+                android:textColor="@color/text_primary"
+                android:textAppearance="@style/TextAppearance.PetCare.Body" />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <Button
             android:id="@+id/btnSendSms"
-            style="@style/PetCarePrimaryButton"
+            style="@style/Widget.PetCare.Button"
             android:layout_width="match_parent"
             android:layout_height="64dp"
-            android:layout_marginTop="32dp"
-            android:text="Send via Messaging App" />
+            android:layout_marginTop="@dimen/space_2xl"
+            android:text="Send SMS" />
 
     </LinearLayout>
 </ScrollView>

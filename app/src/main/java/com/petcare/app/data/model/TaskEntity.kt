@@ -7,8 +7,9 @@ import androidx.room.Index
 import androidx.room.PrimaryKey
 
 /**
- * Represents a care task linked to a specific pet.
- * Uses a Foreign Key targeting PetEntity with CASCADE deletion.
+ * A single step of a pet care routine (e.g. "Breakfast – 1 cup kibble at 08:00").
+ * Completion is tracked per day: [completedOn] holds the date (yyyy-MM-dd) it was last ticked,
+ * so the checklist resets automatically every day.
  */
 @Entity(
     tableName = "tasks",
@@ -18,9 +19,15 @@ import androidx.room.PrimaryKey
             parentColumns = ["id"],
             childColumns = ["pet_id"],
             onDelete = ForeignKey.CASCADE
+        ),
+        ForeignKey(
+            entity = RoutineEntity::class,
+            parentColumns = ["id"],
+            childColumns = ["routine_id"],
+            onDelete = ForeignKey.CASCADE
         )
     ],
-    indices = [Index(value = ["pet_id"])]
+    indices = [Index(value = ["pet_id"]), Index(value = ["routine_id"])]
 )
 data class TaskEntity(
     @PrimaryKey(autoGenerate = true)
@@ -29,18 +36,23 @@ data class TaskEntity(
     @ColumnInfo(name = "pet_id")
     val petId: Long,
 
+    @ColumnInfo(name = "routine_id")
+    val routineId: Long,
+
     @ColumnInfo(name = "title")
     val title: String,
 
-    @ColumnInfo(name = "description")
-    val description: String,
-
     @ColumnInfo(name = "category")
-    val category: String, // e.g., Feeding, Grooming, Medical, Exercise
+    val category: String, // Feeding, Walk, Medication, Grooming, Play, Training, Other
 
-    @ColumnInfo(name = "due_date")
-    val dueDate: String,
+    @ColumnInfo(name = "time") // 24h HH:mm so it sorts correctly
+    val time: String,
 
-    @ColumnInfo(name = "is_completed")
-    val isCompleted: Boolean = false
-)
+    @ColumnInfo(name = "notes")
+    val notes: String = "",
+
+    @ColumnInfo(name = "completed_on")
+    val completedOn: String = ""
+) {
+    fun isDoneOn(date: String): Boolean = completedOn == date
+}

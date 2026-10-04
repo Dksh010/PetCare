@@ -4,56 +4,67 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="24dp">
+    android:padding="@dimen/space_2xl">
 
     <TextView
+        android:id="@+id/tvDialogTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:text="@string/add_task"
-        android:textColor="@color/primary_deep"
-        android:textSize="20sp"
-        android:textStyle="bold" />
+        android:layout_marginBottom="@dimen/space_lg"
+        android:text="@string/dialog_edit_task"
+        android:textAppearance="@style/TextAppearance.PetCare.Title" />
 
     <com.google.android.material.textfield.TextInputLayout
-        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+        android:id="@+id/tilTaskTitle"
+        style="@style/Widget.PetCare.TextField"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp"
-        android:hint="@string/hint_task_title"
-        app:shapeAppearance="@style/ShapeAppearance.PetCare.SmallComponent">
+        android:layout_marginBottom="@dimen/space_md"
+        android:hint="@string/hint_task_title">
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etTaskTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="text" />
+            android:inputType="textCapSentences" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+        style="@style/Widget.PetCare.TextField.Dropdown"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp"
-        android:hint="@string/hint_task_category"
-        app:shapeAppearance="@style/ShapeAppearance.PetCare.SmallComponent">
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etTaskCategory"
+        android:layout_marginBottom="@dimen/space_md"
+        android:hint="@string/hint_task_category">
+        <com.google.android.material.textfield.MaterialAutoCompleteTextView
+            android:id="@+id/actvTaskCategory"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="text" />
+            android:inputType="none" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+        style="@style/Widget.PetCare.TextField"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/hint_task_due_date"
-        app:shapeAppearance="@style/ShapeAppearance.PetCare.SmallComponent">
+        android:layout_marginBottom="@dimen/space_md"
+        android:hint="Time">
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etTaskDueDate"
+            android:id="@+id/etTaskTime"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="text" />
+            android:focusable="false"
+            android:inputType="none" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.PetCare.TextField"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Notes (optional)">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etTaskNotes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textCapSentences" />
     </com.google.android.material.textfield.TextInputLayout>
 
 </LinearLayout>

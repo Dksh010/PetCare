@@ -5,8 +5,8 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import androidx.room.Update
 import com.petcare.app.data.model.ActivityLogEntity
+import com.petcare.app.data.model.PlaceVisit
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -20,6 +20,10 @@ interface ActivityLogDao {
     @Query("SELECT * FROM activity_logs WHERE pet_id = :petId ORDER BY timestamp DESC")
     fun getActivityLogsForPet(petId: Long): Flow<List<ActivityLogEntity>>
 
-    @Query("DELETE FROM activity_logs")
-    suspend fun clearAllActivityLogs()
+    @Query(
+        "SELECT l.type AS title, p.name AS petName, l.timestamp AS whenMillis " +
+            "FROM activity_logs l JOIN pets p ON p.id = l.pet_id " +
+            "WHERE l.location_id = :locationId ORDER BY l.timestamp DESC"
+    )
+    suspend fun getVisitsForLocation(locationId: Long): List<PlaceVisit>
 }

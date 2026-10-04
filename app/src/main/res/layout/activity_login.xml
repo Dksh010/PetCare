@@ -4,126 +4,107 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background_obsidian"
+    android:background="@color/background"
     android:fillViewport="true"
     tools:context=".ui.auth.LoginActivity">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="24dp">
+        android:orientation="vertical"
+        android:padding="@dimen/space_2xl">
+
+        <ImageView
+            android:layout_width="@dimen/icon_tile_lg"
+            android:layout_height="@dimen/icon_tile_lg"
+            android:layout_marginTop="@dimen/space_3xl"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/ic_logo" />
 
         <TextView
-            android:id="@+id/tvBrandTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="48dp"
-            android:text="PetCare"
-            android:textColor="@color/brand_green"
-            android:textSize="28sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/tvWelcomeSubtitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="@dimen/space_2xl"
             android:text="@string/login_welcome_subtitle"
-            android:textColor="@color/text_primary"
-            android:textSize="32sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvBrandTitle" />
+            android:textAppearance="@style/TextAppearance.PetCare.Display" />
 
         <TextView
-            android:id="@+id/tvCaption"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="@dimen/space_xs"
             android:text="@string/login_caption"
-            android:textColor="@color/text_secondary"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvWelcomeSubtitle" />
+            android:textAppearance="@style/TextAppearance.PetCare.Body.Secondary" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tilEmail"
-            style="@style/PetCareTextField"
+            style="@style/Widget.PetCare.TextField"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="48dp"
+            android:layout_marginTop="@dimen/space_3xl"
             android:hint="@string/hint_email"
-            app:layout_constraintTop_toBottomOf="@id/tvCaption"
-            app:shapeAppearance="@style/ShapeAppearance.PetCare.MediumComponent">
+            app:startIconDrawable="@drawable/ic_email">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/text_primary"
                 android:inputType="textEmailAddress"
                 android:maxLines="1" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tilPassword"
-            style="@style/PetCareTextField"
+            style="@style/Widget.PetCare.TextField"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="@dimen/space_lg"
             android:hint="@string/hint_password"
             app:endIconMode="password_toggle"
-            app:layout_constraintTop_toBottomOf="@id/tilEmail"
-            app:shapeAppearance="@style/ShapeAppearance.PetCare.MediumComponent">
+            app:startIconDrawable="@drawable/ic_lock">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/text_primary"
                 android:imeOptions="actionDone"
                 android:inputType="textPassword"
                 android:maxLines="1" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <TextView
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/tvForgotPassword"
+            style="@style/Widget.PetCare.Button.Text.Small"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:text="Forgot Password?"
-            android:textColor="@color/brand_green"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tilPassword" />
+            android:layout_gravity="end"
+            android:text="@string/forgot_password" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btnLogin"
-            style="@style/PetCarePrimaryButton"
+            style="@style/Widget.PetCare.Button"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_marginTop="28dp"
-            android:text="@string/btn_sign_in"
-            android:textSize="16sp"
-            app:layout_constraintTop_toBottomOf="@id/tvForgotPassword" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_lg"
+            android:text="@string/btn_sign_in" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:minHeight="@dimen/space_2xl" />
 
         <TextView
             android:id="@+id/tvSignUp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="28dp"
-            android:padding="8dp"
+            android:layout_gravity="center_horizontal"
+            android:background="?attr/selectableItemBackground"
+            android:gravity="center"
+            android:minHeight="@dimen/touch_target"
+            android:paddingStart="@dimen/space_md"
+            android:paddingEnd="@dimen/space_md"
             android:text="@string/link_sign_up"
-            android:textColor="@color/brand_green"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btnLogin" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            android:textAppearance="@style/TextAppearance.PetCare.Body"
+            android:textColor="@color/primary" />
+    </LinearLayout>
 </ScrollView>

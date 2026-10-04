@@ -1,15 +1,18 @@
 package com.petcare.app.ui.adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.net.toUri
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.petcare.app.R
 import com.petcare.app.data.model.PetEntity
 import com.petcare.app.databinding.ItemPetAvatarBinding
+import com.petcare.app.util.PetImageUtils
 
+/** Horizontal pet switcher; the selected pet gets a brand-colored ring and label. */
 class PetAdapter(
     private val onPetClick: (PetEntity) -> Unit,
     private val onPetLongClick: (PetEntity) -> Unit
@@ -17,6 +20,7 @@ class PetAdapter(
 
     private var selectedPetId: Long? = null
 
+    @SuppressLint("NotifyDataSetChanged")
     fun setSelectedPet(id: Long?) {
         selectedPetId = id
         notifyDataSetChanged()
@@ -33,23 +37,21 @@ class PetAdapter(
 
     inner class PetViewHolder(private val binding: ItemPetAvatarBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(pet: PetEntity) {
+            val context = binding.root.context
             binding.tvPetName.text = pet.name
-            
-            com.petcare.app.util.PetImageUtils.loadPetAvatar(binding.ivPetImage, pet.imageUri, pet.species)
+            PetImageUtils.loadPetAvatar(binding.ivPetImage, pet.imageUri, pet.species)
 
             val isSelected = pet.id == selectedPetId
-            binding.cardPetAvatar.strokeWidth = if (isSelected) 3.toPx() else 0
-            binding.cardPetAvatar.scaleX = if (isSelected) 1.05f else 1.0f
-            binding.cardPetAvatar.scaleY = if (isSelected) 1.05f else 1.0f
+            binding.cardPetAvatar.strokeWidth = if (isSelected) context.resources.getDimensionPixelSize(R.dimen.stroke_focus) * 2 else 0
+            binding.tvPetName.setTextColor(ContextCompat.getColor(context, if (isSelected) R.color.primary else R.color.text_secondary))
+            binding.root.isSelected = isSelected
 
             binding.root.setOnClickListener { onPetClick(pet) }
-            binding.root.setOnLongClickListener { 
+            binding.root.setOnLongClickListener {
                 onPetLongClick(pet)
                 true
             }
         }
-
-        private fun Int.toPx(): Int = (this * binding.root.resources.displayMetrics.density).toInt()
     }
 
     class PetDiffCallback : DiffUtil.ItemCallback<PetEntity>() {

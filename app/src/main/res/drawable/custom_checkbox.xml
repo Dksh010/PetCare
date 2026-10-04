@@ -1,20 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Round check used for checklist and to-do items. -->
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:state_checked="true">
         <layer-list>
             <item>
                 <shape android:shape="oval">
-                    <solid android:color="@color/primary_green" />
-                    <size android:width="32dp" android:height="32dp" />
+                    <solid android:color="@color/success" />
+                    <size android:width="28dp" android:height="28dp" />
                 </shape>
             </item>
-            <item android:drawable="@drawable/ic_check" android:gravity="center" android:top="6dp" android:bottom="6dp" android:left="6dp" android:right="6dp" />
+            <item android:drawable="@drawable/ic_check_on_color" android:gravity="center" android:top="6dp" android:bottom="6dp" android:left="6dp" android:right="6dp" />
         </layer-list>
     </item>
     <item>
         <shape android:shape="oval">
-            <stroke android:width="2dp" android:color="@color/text_secondary" />
-            <size android:width="32dp" android:height="32dp" />
+            <solid android:color="@color/surface" />
+            <stroke android:width="2dp" android:color="@color/text_hint" />
+            <size android:width="28dp" android:height="28dp" />
         </shape>
     </item>
 </selector>

@@ -1,28 +1,27 @@
 package com.petcare.app.ui.adapter
 
+import android.graphics.Paint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.petcare.app.R
 import com.petcare.app.data.model.TaskEntity
 import com.petcare.app.databinding.ItemTaskRowBinding
+import com.petcare.app.ui.dashboard.ChecklistItem
+import com.petcare.app.util.TimeUtils
 
 /**
- * RecyclerView Adapter for the dashboard task list.
+ * Today's checklist: tick to mark a routine step done, tap to edit, bin to delete.
  */
 class TaskAdapter(
     private val onTaskStatusChange: (TaskEntity, Boolean) -> Unit,
+    private val onTaskClick: (TaskEntity) -> Unit,
     private val onDeleteClick: (TaskEntity) -> Unit
-) : ListAdapter<TaskEntity, TaskAdapter.TaskViewHolder>(TaskDiffCallback()) {
+) : ListAdapter<ChecklistItem, TaskAdapter.TaskViewHolder>(TaskDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
-        val binding = ItemTaskRowBinding.inflate(
-            LayoutInflater.from(parent.context),
-            parent,
-            false
-        )
+        val binding = ItemTaskRowBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return TaskViewHolder(binding)
     }
 
@@ -33,37 +32,30 @@ class TaskAdapter(
     inner class TaskViewHolder(private val binding: ItemTaskRowBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(task: TaskEntity) {
+        fun bind(item: ChecklistItem) {
+            val task = item.task
             binding.tvTaskTitle.text = task.title
-            binding.tvTaskMeta.text = binding.root.context.getString(
-                R.string.task_time_category_format,
-                task.dueDate,
-                task.category
-            )
-            
+            binding.tvTaskTime.text = TimeUtils.formatTime(task.time)
+            binding.tvTaskMeta.text = "${task.category} · ${item.routineName}"
+
             binding.cbTaskStatus.setOnCheckedChangeListener(null)
-            binding.cbTaskStatus.isChecked = task.isCompleted
-            
-            // Visual feedback for completion
-            binding.tvTaskTitle.alpha = if (task.isCompleted) 0.5f else 1.0f
-            
-            binding.cbTaskStatus.setOnCheckedChangeListener { _, isChecked ->
-                onTaskStatusChange(task, isChecked)
+            binding.cbTaskStatus.isChecked = item.isDone
+            binding.cbTaskStatus.setOnCheckedChangeListener { _, isChecked -> onTaskStatusChange(task, isChecked) }
+
+            binding.tvTaskTitle.alpha = if (item.isDone) 0.55f else 1f
+            binding.tvTaskTitle.paintFlags = if (item.isDone) {
+                binding.tvTaskTitle.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+            } else {
+                binding.tvTaskTitle.paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv()
             }
 
-            binding.btnDeleteTask.setOnClickListener {
-                onDeleteClick(task)
-            }
+            binding.root.setOnClickListener { onTaskClick(task) }
+            binding.btnDeleteTask.setOnClickListener { onDeleteClick(task) }
         }
     }
 
-    class TaskDiffCallback : DiffUtil.ItemCallback<TaskEntity>() {
-        override fun areItemsTheSame(oldItem: TaskEntity, newItem: TaskEntity): Boolean {
-            return oldItem.id == newItem.id
-        }
-
-        override fun areContentsTheSame(oldItem: TaskEntity, newItem: TaskEntity): Boolean {
-            return oldItem == newItem
-        }
+    class TaskDiffCallback : DiffUtil.ItemCallback<ChecklistItem>() {
+        override fun areItemsTheSame(oldItem: ChecklistItem, newItem: ChecklistItem) = oldItem.task.id == newItem.task.id
+        override fun areContentsTheSame(oldItem: ChecklistItem, newItem: ChecklistItem) = oldItem == newItem
     }
 }

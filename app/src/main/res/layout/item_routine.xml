@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Routine card: name, schedule badge, steps, edit chevron and delete. -->
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/Widget.PetCare.Card"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/space_sm"
+    android:clickable="true"
+    android:focusable="true"
+    app:contentPaddingRight="@dimen/space_xs">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="@dimen/icon_tile"
+                android:layout_height="@dimen/icon_tile"
+                android:background="@drawable/bg_icon_tile"
+                android:backgroundTint="@color/primary_container"
+                android:contentDescription="@null"
+                android:padding="@dimen/space_md"
+                android:src="@drawable/ic_task"
+                app:tint="@color/primary" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/space_md"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvRoutineName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:textAppearance="@style/TextAppearance.PetCare.Subtitle"
+                    tools:text="Morning routine" />
+
+                <TextView
+                    android:id="@+id/tvRoutineMeta"
+                    style="@style/PetCare.Badge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_xs"
+                    android:backgroundTint="@color/primary_container"
+                    android:textColor="@color/on_primary_container"
+                    tools:text="Every day · 3 steps" />
+            </LinearLayout>
+
+            <ImageButton
+                android:id="@+id/btnDeleteRoutine"
+                android:layout_width="@dimen/touch_target"
+                android:layout_height="@dimen/touch_target"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/delete_routine"
+                android:src="@drawable/ic_delete"
+                app:tint="@color/text_hint" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvRoutineSteps"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_md"
+            android:layout_marginEnd="@dimen/space_md"
+            android:background="@drawable/bg_icon_tile"
+            android:backgroundTint="@color/surface_variant"
+            android:lineSpacingExtra="6dp"
+            android:padding="@dimen/space_md"
+            android:textAppearance="@style/TextAppearance.PetCare.Body.Secondary"
+            tools:text="7:30 AM   Morning walk\n8:00 AM   Breakfast" />
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Appointment / reminder / vaccination card: icon tile, details, status badge, complete + delete. -->
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/Widget.PetCare.Card"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/space_sm"
+    android:clickable="true"
+    android:focusable="true"
+    app:contentPaddingBottom="@dimen/space_md"
+    app:contentPaddingLeft="@dimen/space_md"
+    app:contentPaddingRight="@dimen/space_xs"
+    app:contentPaddingTop="@dimen/space_md">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/ivPlanIcon"
+            android:layout_width="@dimen/icon_tile"
+            android:layout_height="@dimen/icon_tile"
+            android:background="@drawable/bg_icon_tile"
+            android:backgroundTint="@color/info_container"
+            android:contentDescription="@null"
+            android:padding="@dimen/space_md"
+            app:tint="@color/info"
+            tools:src="@drawable/ic_appointment" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_md"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvPlanTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:textAppearance="@style/TextAppearance.PetCare.Body.Medium"
+                tools:text="Annual check-up" />
+
+            <TextView
+                android:id="@+id/tvPlanMeta"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:drawablePadding="@dimen/space_xs"
+                android:gravity="center_vertical"
+                android:textAppearance="@style/TextAppearance.PetCare.Caption"
+                app:drawableStartCompat="@drawable/ic_schedule_sm"
+                app:drawableTint="@color/text_secondary"
+                tools:text="Oct 5, 2026 · 10:00 AM" />
+
+            <TextView
+                android:id="@+id/tvPlanDetail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:drawablePadding="@dimen/space_xs"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:maxLines="1"
+                android:textAppearance="@style/TextAppearance.PetCare.Caption"
+                android:visibility="gone"
+                app:drawableStartCompat="@drawable/ic_location_sm"
+                app:drawableTint="@color/text_secondary"
+                tools:text="Kathmandu Vet Clinic"
+                tools:visibility="visible" />
+
+            <TextView
+                android:id="@+id/tvPlanStatus"
+                style="@style/PetCare.Badge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_sm"
+                android:backgroundTint="@color/info_container"
+                android:textColor="@color/info"
+                tools:text="Upcoming" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <CheckBox
+                android:id="@+id/cbPlanDone"
+                android:layout_width="@dimen/touch_target"
+                android:layout_height="@dimen/touch_target"
+                android:background="@drawable/bg_round_check"
+                android:button="@null"
+                android:contentDescription="@string/mark_done" />
+
+            <ImageButton
+                android:id="@+id/btnPlanDelete"
+                android:layout_width="@dimen/touch_target"
+                android:layout_height="@dimen/touch_target"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/delete"
+                android:src="@drawable/ic_delete"
+                app:tint="@color/text_hint" />
+        </LinearLayout>
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

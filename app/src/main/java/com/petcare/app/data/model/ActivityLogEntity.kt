@@ -14,9 +14,15 @@ import androidx.room.PrimaryKey
             parentColumns = ["id"],
             childColumns = ["pet_id"],
             onDelete = ForeignKey.CASCADE
+        ),
+        ForeignKey(
+            entity = LocationEntity::class,
+            parentColumns = ["id"],
+            childColumns = ["location_id"],
+            onDelete = ForeignKey.SET_NULL
         )
     ],
-    indices = [Index(value = ["pet_id"])]
+    indices = [Index(value = ["pet_id"]), Index(value = ["location_id"])]
 )
 data class ActivityLogEntity(
     @PrimaryKey(autoGenerate = true)
@@ -35,5 +41,8 @@ data class ActivityLogEntity(
     val duration: Int = 0, // in minutes
 
     @ColumnInfo(name = "notes")
-    val notes: String = ""
+    val notes: String = "",
+
+    @ColumnInfo(name = "location_id") // geotagged place, optional
+    val locationId: Long? = null
 )

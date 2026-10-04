@@ -14,9 +14,15 @@ import androidx.room.PrimaryKey
             parentColumns = ["id"],
             childColumns = ["pet_id"],
             onDelete = ForeignKey.CASCADE
+        ),
+        ForeignKey(
+            entity = LocationEntity::class,
+            parentColumns = ["id"],
+            childColumns = ["location_id"],
+            onDelete = ForeignKey.SET_NULL
         )
     ],
-    indices = [Index(value = ["pet_id"])]
+    indices = [Index(value = ["pet_id"]), Index(value = ["location_id"])]
 )
 data class AppointmentEntity(
     @PrimaryKey(autoGenerate = true)
@@ -31,12 +37,23 @@ data class AppointmentEntity(
     @ColumnInfo(name = "clinic")
     val clinic: String,
 
-    @ColumnInfo(name = "date_time")
-    val dateTime: String,
+    @ColumnInfo(name = "date_millis")
+    val dateMillis: Long,
 
     @ColumnInfo(name = "notes")
     val notes: String = "",
 
     @ColumnInfo(name = "status")
-    val status: String = "Scheduled" // Scheduled, Completed, Cancelled
-)
+    val status: String = STATUS_SCHEDULED,
+
+    @ColumnInfo(name = "location_id") // geotagged place, optional
+    val locationId: Long? = null
+) {
+    val isCompleted: Boolean get() = status == STATUS_COMPLETED
+
+    companion object {
+        const val STATUS_SCHEDULED = "Scheduled"
+        const val STATUS_COMPLETED = "Completed"
+    }
+}
+

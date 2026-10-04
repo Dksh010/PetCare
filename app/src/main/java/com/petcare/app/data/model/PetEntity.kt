@@ -26,7 +26,7 @@ data class PetEntity(
     val id: Long = 0,
 
     @ColumnInfo(name = "user_id")
-    val userId: Long = 1L, // Default to 1L for migration safety, will be updated correctly for new pets
+    val userId: Long,
 
     @ColumnInfo(name = "name")
     val name: String,

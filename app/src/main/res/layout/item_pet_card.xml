@@ -1,114 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Pet list card: photo, name, breed, age/weight chips, actions. -->
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    style="@style/Widget.PetCare.Card"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="16dp"
-    app:cardBackgroundColor="@color/surface_primary"
-    app:cardCornerRadius="24dp"
-    app:strokeColor="@color/surface_elevated"
-    app:strokeWidth="1dp"
-    app:cardElevation="2dp">
+    android:layout_marginBottom="@dimen/space_md"
+    android:clickable="true"
+    android:focusable="true"
+    app:contentPadding="@dimen/space_md">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="20dp">
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/ivPetCardAvatar"
+            android:layout_width="@dimen/avatar_xl"
+            android:layout_height="@dimen/avatar_xl"
+            android:background="@color/primary_container"
+            android:contentDescription="@null"
+            android:scaleType="centerCrop"
+            app:shapeAppearanceOverlay="@style/ShapeAppearance.PetCare.Avatar" />
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/ivPetCardAvatar"
-                android:layout_width="72dp"
-                android:layout_height="72dp"
-                android:scaleType="centerCrop"
-                app:shapeAppearanceOverlay="@style/ShapeAppearance.PetCare.LargeComponent"
-                tools:src="@drawable/splash_gradient" />
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginStart="16dp"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/tvPetCardName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/text_primary"
-                    android:textSize="20sp"
-                    android:textStyle="bold"
-                    tools:text="Max" />
-
-                <TextView
-                    android:id="@+id/tvPetCardBreed"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
-                    android:textColor="@color/brand_green"
-                    android:textSize="14sp"
-                    tools:text="Dog · Golden Retriever" />
-
-                <TextView
-                    android:id="@+id/tvPetCardAgeWeight"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:textColor="@color/text_secondary"
-                    android:textSize="12sp"
-                    tools:text="3 yrs old · 28 kg" />
-            </LinearLayout>
-
-            <ImageButton
-                android:id="@+id/btnDeletePetCard"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:src="@drawable/ic_delete"
-                app:tint="@color/text_muted"
-                android:contentDescription="@string/delete_pet" />
-        </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="12dp"
-            android:background="@color/surface_elevated" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
+            android:layout_marginStart="@dimen/space_lg"
+            android:layout_weight="1"
+            android:orientation="vertical">
 
             <TextView
-                android:id="@+id/tvPetCardStatus"
-                android:layout_width="0dp"
+                android:id="@+id/tvPetCardName"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Healthy"
-                android:textColor="@color/success_green"
-                android:textSize="13sp"
-                android:textStyle="bold" />
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textAppearance="@style/TextAppearance.PetCare.Title"
+                tools:text="Max" />
+
+            <TextView
+                android:id="@+id/tvPetCardBreed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textAppearance="@style/TextAppearance.PetCare.Body.Secondary"
+                tools:text="Dog · Golden Retriever" />
+
+            <TextView
+                android:id="@+id/tvPetCardAgeWeight"
+                style="@style/PetCare.Badge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_sm"
+                android:backgroundTint="@color/surface_variant"
+                tools:text="3 yrs · 28kg" />
 
             <TextView
                 android:id="@+id/btnViewPetDetails"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_xs"
+                android:minHeight="@dimen/touch_target"
+                android:gravity="center_vertical"
+                app:drawableEndCompat="@drawable/ic_chevron_right"
+                app:drawableTint="@color/primary"
                 android:text="@string/view_profile"
-                android:textColor="@color/brand_green"
-                android:textSize="13sp"
-                android:textStyle="bold" />
+                android:textAppearance="@style/TextAppearance.PetCare.Body.Medium"
+                android:textColor="@color/primary" />
         </LinearLayout>
 
+        <ImageButton
+            android:id="@+id/btnDeletePetCard"
+            android:layout_width="@dimen/touch_target"
+            android:layout_height="@dimen/touch_target"
+            android:layout_gravity="top"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/delete"
+            android:src="@drawable/ic_delete"
+            app:tint="@color/text_hint" />
     </LinearLayout>
-
 </com.google.android.material.card.MaterialCardView>

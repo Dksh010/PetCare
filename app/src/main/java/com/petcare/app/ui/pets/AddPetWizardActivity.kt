@@ -23,33 +23,21 @@ class AddPetWizardActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAddPetWizardBinding
     private lateinit var sessionManager: SessionManager
     private var currentStep = 1
-    private var selectedImageUri: Uri? = null
+    private var selectedImageUri: String? = null
 
-    private val viewModel: PetViewModel by viewModels {
-        val database = AppDatabase.getDatabase(applicationContext)
-        val repository = PetRepository(
-            database.petDao(),
-            database.taskDao(),
-            database.userDao(),
-            database.reminderDao(),
-            database.appointmentDao(),
-            database.activityLogDao(),
-            database.vaccinationDao()
-        )
-        PetViewModelFactory(repository)
-    }
+    private val viewModel: PetViewModel by viewModels { PetViewModelFactory.from(this) }
 
     private val pickPhoto = registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
-        uri?.let {
-            selectedImageUri = it
-            PetImageUtils.loadPetAvatar(binding.ivWizardPetPhoto, it.toString(), getSelectedSpecies())
-        }
+        uri?.let { PetImageUtils.copyToAppStorage(this, it)?.let(::setPhoto) }
     }
 
     private val takePhoto = registerForActivityResult(ActivityResultContracts.TakePicturePreview()) { bitmap ->
-        bitmap?.let {
-            binding.ivWizardPetPhoto.setImageBitmap(it)
-        }
+        bitmap?.let { PetImageUtils.saveBitmapToAppStorage(this, it)?.let(::setPhoto) }
+    }
+
+    private fun setPhoto(uriString: String) {
+        selectedImageUri = uriString
+        PetImageUtils.loadPetAvatar(binding.ivWizardPetPhoto, uriString, getSelectedSpecies())
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -107,7 +95,9 @@ class AddPetWizardActivity : AppCompatActivity() {
     }
 
     private fun updateStepUI() {
-        binding.tvWizardStepIndicator.text = "STEP $currentStep OF 5"
+        binding.tvWizardStepIndicator.text = "Step $currentStep of 5"
+        binding.pbWizardProgress.setProgressCompat(currentStep, true)
+        binding.btnWizardPrev.text = if (currentStep == 1) "Cancel" else "Back"
 
         binding.layoutStepType.visibility = if (currentStep == 1) View.VISIBLE else View.GONE
         binding.layoutStepBasic.visibility = if (currentStep == 2) View.VISIBLE else View.GONE
@@ -117,27 +107,27 @@ class AddPetWizardActivity : AppCompatActivity() {
 
         when (currentStep) {
             1 -> {
-                binding.tvWizardTitle.text = "Pet Type"
+                binding.tvWizardTitle.text = "Pet type"
                 binding.btnWizardNext.text = "Continue"
             }
             2 -> {
-                binding.tvWizardTitle.text = "Basic Details"
+                binding.tvWizardTitle.text = "Basic details"
                 binding.btnWizardNext.text = "Continue"
                 if (selectedImageUri == null) {
                     PetImageUtils.loadPetAvatar(binding.ivWizardPetPhoto, null, getSelectedSpecies())
                 }
             }
             3 -> {
-                binding.tvWizardTitle.text = "Physical Info"
+                binding.tvWizardTitle.text = "Physical info"
                 binding.btnWizardNext.text = "Continue"
             }
             4 -> {
-                binding.tvWizardTitle.text = "Health & Vet"
+                binding.tvWizardTitle.text = "Health and vet"
                 binding.btnWizardNext.text = "Continue"
             }
             5 -> {
-                binding.tvWizardTitle.text = "Review Profile"
-                binding.btnWizardNext.text = "Create Profile"
+                binding.tvWizardTitle.text = "Review profile"
+                binding.btnWizardNext.text = "Create profile"
                 updateReviewSummary()
             }
         }
@@ -180,7 +170,7 @@ class AddPetWizardActivity : AppCompatActivity() {
             dietaryPrefs = binding.etWizardDiet.text.toString().trim(),
             allergies = binding.etWizardAllergies.text.toString().trim(),
             veterinarianName = binding.etWizardVetInfo.text.toString().trim(),
-            imageUri = selectedImageUri?.toString(),
+            imageUri = selectedImageUri,
             ownerContact = sessionManager.getUserEmail() ?: ""
         )
         viewModel.addPet(pet)

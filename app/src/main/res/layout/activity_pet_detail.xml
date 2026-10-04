@@ -1,24 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Pet profile: photo header, stats, health, vaccinations, vet, edit form, actions. -->
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/coordinatorLayoutDetail"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background_obsidian"
+    android:background="@color/background"
     tools:context=".ui.profile.PetDetailActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarDetail"
         android:layout_width="match_parent"
         android:layout_height="320dp"
-        android:background="@color/background_obsidian">
+        android:background="@color/primary_container"
+        app:elevation="0dp">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:id="@+id/collapsingToolbar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:contentScrim="@color/surface_primary"
+            app:contentScrim="@color/background"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:titleEnabled="false">
 
@@ -26,216 +28,390 @@
                 android:id="@+id/ivPetDetailImage"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:contentDescription="@null"
                 android:scaleType="centerCrop"
-                android:src="@drawable/splash_gradient"
-                app:layout_collapseMode="parallax"
-                android:contentDescription="@string/pet_profile" />
+                app:layout_collapseMode="parallax" />
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="120dp"
-                android:layout_gravity="bottom"
-                android:background="@drawable/gradient_overlay" />
+                android:background="@drawable/gradient_overlay"
+                app:layout_collapseMode="parallax" />
 
-            <androidx.appcompat.widget.Toolbar
+            <com.google.android.material.appbar.MaterialToolbar
                 android:id="@+id/toolbarDetail"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
+                android:background="@android:color/transparent"
                 app:layout_collapseMode="pin"
-                app:navigationIcon="@drawable/ic_back" />
-
+                app:navigationContentDescription="@string/cd_back"
+                app:navigationIcon="@drawable/ic_back"
+                app:navigationIconTint="@color/white" />
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/rounded_top_surface"
-        android:layout_marginTop="-32dp"
+        android:clipToPadding="false"
+        app:behavior_overlapTop="32dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/bg_sheet_top"
             android:orientation="vertical"
-            android:padding="24dp">
+            android:padding="@dimen/screen_padding">
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnChangeImage"
-                style="@style/Widget.Material3.Button.TextButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:text="Change Photo"
-                android:textColor="@color/brand_green"
-                app:icon="@drawable/ic_camera"
-                app:iconTint="@color/brand_green" />
-
-            <TextView
-                android:id="@+id/tvPetProfileName"
-                style="@style/TextAppearance.PetCare.HeadlineMedium"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Max"
-                android:textSize="32sp" />
-
-            <TextView
-                android:id="@+id/tvPetProfileBreed"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Golden Retriever · Male"
-                android:textColor="@color/brand_green"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-
-            <!-- Stats Overview Row -->
+            <!-- Name + photo button -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:gravity="center_vertical"
                 android:orientation="horizontal">
 
-                <com.google.android.material.card.MaterialCardView
+                <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:layout_marginEnd="8dp"
-                    app:cardBackgroundColor="@color/surface_primary"
-                    app:cardCornerRadius="20dp"
-                    app:strokeWidth="0dp">
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:orientation="vertical"
-                        android:padding="16dp">
-                        <TextView
-                            android:id="@+id/tvProfileWeight"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="28 kg"
-                            android:textColor="@color/text_primary"
-                            android:textStyle="bold" />
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Weight"
-                            android:textColor="@color/text_muted"
-                            android:textSize="12sp" />
-                    </LinearLayout>
-                </com.google.android.material.card.MaterialCardView>
+                    android:orientation="vertical">
 
-                <com.google.android.material.card.MaterialCardView
-                    android:layout_width="0dp"
+                    <TextView
+                        android:id="@+id/tvPetProfileName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="@style/TextAppearance.PetCare.Display"
+                        tools:text="Max" />
+
+                    <TextView
+                        android:id="@+id/tvPetProfileBreed"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="@style/TextAppearance.PetCare.Body.Secondary"
+                        tools:text="Dog · Golden Retriever" />
+                </LinearLayout>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnChangeImage"
+                    style="@style/Widget.PetCare.Button.Tonal"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_marginStart="8dp"
-                    app:cardBackgroundColor="@color/surface_primary"
-                    app:cardCornerRadius="20dp"
-                    app:strokeWidth="0dp">
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:orientation="vertical"
-                        android:padding="16dp">
-                        <TextView
-                            android:id="@+id/tvProfileAge"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="3 yrs"
-                            android:textColor="@color/text_primary"
-                            android:textStyle="bold" />
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Age"
-                            android:textColor="@color/text_muted"
-                            android:textSize="12sp" />
-                    </LinearLayout>
-                </com.google.android.material.card.MaterialCardView>
-
+                    android:minHeight="@dimen/button_height_small"
+                    android:text="@string/photo"
+                    app:icon="@drawable/ic_camera" />
             </LinearLayout>
 
-            <!-- Details Form -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
-                android:text="Pet Details"
-                android:textColor="@color/text_primary"
-                android:textStyle="bold" />
-
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/PetCareTextField"
+            <!-- Quick stats -->
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="@dimen/space_xl"
+                android:baselineAligned="false"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    style="@style/PetCare.StatTile"
+                    android:layout_marginEnd="@dimen/space_sm">
+
+                    <TextView
+                        android:id="@+id/tvProfileAge"
+                        style="@style/PetCare.StatTile.Value"
+                        tools:text="3 yrs" />
+
+                    <TextView
+                        style="@style/PetCare.StatTile.Label"
+                        android:text="@string/label_age" />
+                </LinearLayout>
+
+                <LinearLayout
+                    style="@style/PetCare.StatTile"
+                    android:layout_marginEnd="@dimen/space_sm">
+
+                    <TextView
+                        android:id="@+id/tvProfileWeight"
+                        style="@style/PetCare.StatTile.Value"
+                        tools:text="28kg" />
+
+                    <TextView
+                        style="@style/PetCare.StatTile.Label"
+                        android:text="@string/label_weight" />
+                </LinearLayout>
+
+                <LinearLayout
+                    style="@style/PetCare.StatTile"
+                    android:layout_marginEnd="@dimen/space_sm">
+
+                    <TextView
+                        android:id="@+id/tvProfileGender"
+                        style="@style/PetCare.StatTile.Value"
+                        tools:text="Male" />
+
+                    <TextView
+                        style="@style/PetCare.StatTile.Label"
+                        android:text="@string/label_gender" />
+                </LinearLayout>
+
+                <LinearLayout style="@style/PetCare.StatTile">
+
+                    <TextView
+                        android:id="@+id/tvProfileSize"
+                        style="@style/PetCare.StatTile.Value"
+                        tools:text="Large" />
+
+                    <TextView
+                        style="@style/PetCare.StatTile.Label"
+                        android:text="@string/label_size" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Health -->
+            <com.google.android.material.card.MaterialCardView
+                style="@style/Widget.PetCare.Card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_xl">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:background="@drawable/bg_icon_tile"
+                            android:backgroundTint="@color/error_container"
+                            android:contentDescription="@null"
+                            android:padding="10dp"
+                            android:src="@drawable/ic_medical"
+                            app:tint="@color/error" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/space_md"
+                            android:layout_weight="1"
+                            android:text="@string/health_info"
+                            android:textAppearance="@style/TextAppearance.PetCare.Subtitle" />
+
+                        <TextView
+                            android:id="@+id/tvSterilized"
+                            style="@style/PetCare.Badge"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:backgroundTint="@color/surface_variant"
+                            tools:text="Sterilized" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/tvHealthDetails"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/space_md"
+                        android:lineSpacingExtra="6dp"
+                        android:textAppearance="@style/TextAppearance.PetCare.Body"
+                        tools:text="Allergies: None\nMedications: Joint supplement\nDiet: High-protein dry food" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Vaccinations -->
+            <com.google.android.material.card.MaterialCardView
+                style="@style/Widget.PetCare.Card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_md">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:background="@drawable/bg_icon_tile"
+                        android:backgroundTint="@color/success_container"
+                        android:contentDescription="@null"
+                        android:padding="10dp"
+                        android:src="@drawable/ic_vaccination"
+                        app:tint="@color/success" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/space_md"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/vaccinations"
+                            android:textAppearance="@style/TextAppearance.PetCare.Subtitle" />
+
+                        <TextView
+                            android:id="@+id/tvVaccineSummary"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="@style/TextAppearance.PetCare.Caption"
+                            tools:text="1 recorded · next due Oct 2, 2027" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/tvVaccineStatus"
+                        style="@style/PetCare.Badge"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@color/success_container"
+                        android:textColor="@color/success"
+                        tools:text="Up to date" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Vet -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardVet"
+                style="@style/Widget.PetCare.Card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_md"
+                app:contentPaddingRight="@dimen/space_xs">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:background="@drawable/bg_icon_tile"
+                        android:backgroundTint="@color/info_container"
+                        android:contentDescription="@null"
+                        android:padding="10dp"
+                        android:src="@drawable/ic_appointment"
+                        app:tint="@color/info" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/space_md"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/veterinarian"
+                            android:textAppearance="@style/TextAppearance.PetCare.Subtitle" />
+
+                        <TextView
+                            android:id="@+id/tvVetInfo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="@style/TextAppearance.PetCare.Caption"
+                            tools:text="Dr. Sharma · Kathmandu Vet Clinic" />
+                    </LinearLayout>
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnCallVet"
+                        style="@style/Widget.PetCare.IconButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="@string/call_vet"
+                        android:visibility="gone"
+                        app:icon="@drawable/ic_phone"
+                        app:iconTint="@color/primary"
+                        tools:visibility="visible" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Edit details -->
+            <TextView
+                style="@style/PetCare.Text.SectionTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_2xl"
+                android:text="@string/edit_details" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.PetCare.TextField"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_md"
                 android:hint="@string/hint_pet_name">
+
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etPetName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/text_primary" />
+                    android:inputType="textCapWords" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                style="@style/PetCareTextField"
+                style="@style/Widget.PetCare.TextField"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="@dimen/space_md"
                 android:hint="@string/hint_pet_breed">
+
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etPetBreed"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/text_primary" />
+                    android:inputType="textCapWords" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                style="@style/PetCareTextField"
+                style="@style/Widget.PetCare.TextField"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="@dimen/space_md"
                 android:hint="@string/hint_dietary_prefs">
+
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etDietaryPrefs"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/text_primary"
-                    android:minLines="2"
-                    android:gravity="top" />
+                    android:inputType="textMultiLine|textCapSentences"
+                    android:minLines="2" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <Button
-                android:id="@+id/btnDownloadReport"
-                style="@style/Widget.Material3.Button.TonalButton"
-                android:layout_width="match_parent"
-                android:layout_height="56dp"
-                android:layout_marginTop="24dp"
-                android:text="Download Medical Report"
-                android:textColor="@color/brand_green"
-                app:icon="@drawable/ic_share"
-                app:iconTint="@color/brand_green" />
-
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnSavePet"
-                style="@style/PetCarePrimaryButton"
+                style="@style/Widget.PetCare.Button"
                 android:layout_width="match_parent"
-                android:layout_height="64dp"
-                android:layout_marginTop="16dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_xl"
                 android:text="@string/save_changes" />
 
-            <Button
-                android:id="@+id/btnDeletePet"
-                style="@style/Widget.Material3.Button.TextButton"
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnDownloadReport"
+                style="@style/Widget.PetCare.Button.Outlined"
                 android:layout_width="match_parent"
-                android:layout_height="56dp"
-                android:layout_marginTop="8dp"
-                android:text="@string/delete_pet"
-                android:textColor="@color/error_red" />
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_md"
+                android:text="@string/share_report"
+                app:icon="@drawable/ic_share" />
 
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnDeletePet"
+                style="@style/Widget.PetCare.Button.Danger"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_sm"
+                android:layout_marginBottom="@dimen/space_2xl"
+                android:text="@string/delete_pet"
+                app:icon="@drawable/ic_delete" />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
-
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -1,47 +1,80 @@
 package com.petcare.app.data.repository
 
-import com.petcare.app.data.local.*
+import android.content.Context
+import androidx.room.withTransaction
+import com.petcare.app.data.local.AppDatabase
 import com.petcare.app.data.model.*
 import kotlinx.coroutines.flow.Flow
 
 /**
- * Extended Repository bridging all Room DAOs to the ViewModel layer.
+ * Repository bridging all Room DAOs to the ViewModel layer.
  */
-class PetRepository(
-    private val petDao: PetDao,
-    private val taskDao: TaskDao,
-    private val userDao: UserDao,
-    private val reminderDao: ReminderDao,
-    private val appointmentDao: AppointmentDao,
-    private val activityLogDao: ActivityLogDao,
-    private val vaccinationDao: VaccinationDao
-) {
+class PetRepository(private val db: AppDatabase) {
+
+    private val petDao = db.petDao()
+    private val routineDao = db.routineDao()
+    private val taskDao = db.taskDao()
+    private val userDao = db.userDao()
+    private val reminderDao = db.reminderDao()
+    private val appointmentDao = db.appointmentDao()
+    private val activityLogDao = db.activityLogDao()
+    private val vaccinationDao = db.vaccinationDao()
+    private val locationDao = db.locationDao()
 
     // --- PET OPERATIONS ---
     fun getAllPets(userId: Long): Flow<List<PetEntity>> = petDao.getAllPets(userId)
-
     suspend fun insertPet(pet: PetEntity): Long = petDao.insertPet(pet)
     suspend fun updatePet(pet: PetEntity) = petDao.updatePet(pet)
     suspend fun deletePet(pet: PetEntity) = petDao.deletePet(pet)
     suspend fun getPetById(petId: Long): PetEntity? = petDao.getPetById(petId)
 
-    // --- TASK OPERATIONS ---
+    // --- ROUTINE & TASK OPERATIONS ---
+    fun getRoutinesForPet(petId: Long): Flow<List<RoutineEntity>> = routineDao.getRoutinesForPet(petId)
     fun getTasksForPet(petId: Long): Flow<List<TaskEntity>> = taskDao.getTasksForPet(petId)
-    val pendingTasks: Flow<List<TaskEntity>> = taskDao.getPendingTasks()
+    suspend fun getRoutineById(routineId: Long): RoutineEntity? = routineDao.getRoutineById(routineId)
+    suspend fun getTasksForRoutine(routineId: Long): List<TaskEntity> = taskDao.getTasksForRoutine(routineId)
+
+    /**
+     * Inserts or updates a routine together with its steps. Steps missing from [steps]
+     * are deleted; existing steps keep their id (and today's completion state).
+     */
+    suspend fun saveRoutine(routine: RoutineEntity, steps: List<TaskEntity>): Long = db.withTransaction {
+        val routineId = if (routine.id == 0L) {
+            routineDao.insertRoutine(routine)
+        } else {
+            routineDao.updateRoutine(routine)
+            routine.id
+        }
+        val keptIds = steps.map { it.id }.filter { it != 0L }.toSet()
+        taskDao.getTasksForRoutine(routineId)
+            .filter { it.id !in keptIds }
+            .forEach { taskDao.deleteTask(it) }
+        steps.forEach { step ->
+            val task = step.copy(routineId = routineId, petId = routine.petId)
+            if (task.id == 0L) taskDao.insertTask(task) else taskDao.updateTask(task)
+        }
+        routineId
+    }
+
+    /** Re-inserts a deleted routine with its original ids (used by Undo). */
+    suspend fun restoreRoutine(routine: RoutineEntity, steps: List<TaskEntity>) = db.withTransaction {
+        routineDao.insertRoutine(routine)
+        taskDao.insertTasks(steps)
+    }
+
+    suspend fun deleteRoutine(routine: RoutineEntity) = routineDao.deleteRoutine(routine)
     suspend fun insertTask(task: TaskEntity): Long = taskDao.insertTask(task)
     suspend fun updateTask(task: TaskEntity) = taskDao.updateTask(task)
     suspend fun deleteTask(task: TaskEntity) = taskDao.deleteTask(task)
-    suspend fun setTaskCompletionStatus(taskId: Long, isCompleted: Boolean) = taskDao.updateTaskStatus(taskId, isCompleted)
+    suspend fun setTaskCompletedOn(taskId: Long, date: String) = taskDao.setCompletedOn(taskId, date)
 
     // --- USER / AUTH OPERATIONS ---
     suspend fun insertUser(user: UserEntity): Long = userDao.insertUser(user)
     suspend fun updateUser(user: UserEntity) = userDao.updateUser(user)
     suspend fun getUserByEmail(email: String): UserEntity? = userDao.getUserByEmail(email)
     suspend fun getUserById(userId: Long): UserEntity? = userDao.getUserById(userId)
-    suspend fun deleteAccount(userId: Long) {
-        petDao.deletePetsForUser(userId)
-        userDao.deleteUserById(userId)
-    }
+    // Pets, places and all care data cascade from the user row.
+    suspend fun deleteAccount(userId: Long) = userDao.deleteUserById(userId)
 
     // --- REMINDER OPERATIONS ---
     fun getRemindersForPet(petId: Long): Flow<List<ReminderEntity>> = reminderDao.getRemindersForPet(petId)
@@ -58,11 +91,24 @@ class PetRepository(
     // --- ACTIVITY LOG OPERATIONS ---
     fun getActivityLogsForPet(petId: Long): Flow<List<ActivityLogEntity>> = activityLogDao.getActivityLogsForPet(petId)
     suspend fun insertActivityLog(log: ActivityLogEntity): Long = activityLogDao.insertActivityLog(log)
-    suspend fun deleteActivityLog(log: ActivityLogEntity) = activityLogDao.deleteActivityLog(log)
 
     // --- VACCINATION OPERATIONS ---
     fun getVaccinationsForPet(petId: Long): Flow<List<VaccinationEntity>> = vaccinationDao.getVaccinationsForPet(petId)
     suspend fun insertVaccination(vaccination: VaccinationEntity): Long = vaccinationDao.insertVaccination(vaccination)
     suspend fun updateVaccination(vaccination: VaccinationEntity) = vaccinationDao.updateVaccination(vaccination)
     suspend fun deleteVaccination(vaccination: VaccinationEntity) = vaccinationDao.deleteVaccination(vaccination)
+
+    // --- GEOTAGGED PLACES ---
+    fun getLocationsForUser(userId: Long): Flow<List<LocationEntity>> = locationDao.getLocationsForUser(userId)
+    suspend fun insertLocation(location: LocationEntity): Long = locationDao.insertLocation(location)
+    suspend fun deleteLocation(location: LocationEntity) = locationDao.deleteLocation(location)
+
+    /** Appointments and activities linked to a place, newest first. */
+    suspend fun getVisitsForLocation(locationId: Long): List<PlaceVisit> =
+        (appointmentDao.getVisitsForLocation(locationId) + activityLogDao.getVisitsForLocation(locationId))
+            .sortedByDescending { it.whenMillis }
+
+    companion object {
+        fun from(context: Context) = PetRepository(AppDatabase.getDatabase(context))
+    }
 }

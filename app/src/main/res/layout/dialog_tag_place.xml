@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="@dimen/space_2xl">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="📍 Tag this place"
+        android:textAppearance="@style/TextAppearance.PetCare.Title" />
+
+    <TextView
+        android:id="@+id/tvPlaceCoords"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/space_xs"
+        android:layout_marginBottom="@dimen/space_lg"
+        android:textAppearance="@style/TextAppearance.PetCare.Body.Secondary" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilPlaceName"
+        style="@style/Widget.PetCare.TextField"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/space_md"
+        android:hint="Place name">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etPlaceName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textCapWords" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.PetCare.TextField.Dropdown"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/space_md"
+        android:hint="Type of place">
+        <com.google.android.material.textfield.MaterialAutoCompleteTextView
+            android:id="@+id/actvPlaceType"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="none" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.PetCare.TextField"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Address or note (optional)">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etPlaceAddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textCapSentences" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+</LinearLayout>

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Round check centred inside a 48dp touch target (used as a CheckBox background). -->
+<inset xmlns:android="http://schemas.android.com/apk/res/android"
+    android:drawable="@drawable/custom_checkbox"
+    android:inset="10dp" />

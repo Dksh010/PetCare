@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Darkens the top of a photo header so the white back arrow stays readable. -->
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
     <gradient
-        android:angle="90"
-        android:endColor="#80000000"
-        android:startColor="@android:color/transparent"
-        android:type="linear" />
+        android:angle="270"
+        android:startColor="#59000000"
+        android:endColor="#00000000" />
 </shape>

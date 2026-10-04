@@ -1,5 +1,6 @@
 package com.petcare.app.ui.adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -12,6 +13,14 @@ import java.util.*
 
 class ActivityLogAdapter : ListAdapter<ActivityLogEntity, ActivityLogAdapter.LogViewHolder>(LogDiffCallback()) {
 
+    private var placeNames: Map<Long, String> = emptyMap()
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun setPlaceNames(names: Map<Long, String>) {
+        placeNames = names
+        notifyDataSetChanged()
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LogViewHolder {
         val binding = ItemActivityLogBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return LogViewHolder(binding)
@@ -21,11 +30,12 @@ class ActivityLogAdapter : ListAdapter<ActivityLogEntity, ActivityLogAdapter.Log
         holder.bind(getItem(position))
     }
 
-    class LogViewHolder(private val binding: ItemActivityLogBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class LogViewHolder(private val binding: ItemActivityLogBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(log: ActivityLogEntity) {
-            binding.tvActivityType.text = log.type
-            binding.tvActivityNotes.text = log.notes
-            val sdf = SimpleDateFormat("hh:mm a", Locale.getDefault())
+            binding.tvActivityType.text = if (log.duration > 0) "${log.type} · ${log.duration} min" else log.type
+            val place = log.locationId?.let { placeNames[it] }
+            binding.tvActivityNotes.text = if (place != null) "${log.notes}\n📍 $place" else log.notes
+            val sdf = SimpleDateFormat("MMM d, h:mm a", Locale.getDefault())
             binding.tvActivityTime.text = sdf.format(Date(log.timestamp))
         }
     }

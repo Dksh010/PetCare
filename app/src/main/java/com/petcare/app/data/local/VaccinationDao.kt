@@ -20,9 +20,6 @@ interface VaccinationDao {
     @Delete
     suspend fun deleteVaccination(vaccination: VaccinationEntity)
 
-    @Query("SELECT * FROM vaccinations WHERE pet_id = :petId ORDER BY date_given DESC")
+    @Query("SELECT * FROM vaccinations WHERE pet_id = :petId ORDER BY next_due_date ASC")
     fun getVaccinationsForPet(petId: Long): Flow<List<VaccinationEntity>>
-
-    @Query("DELETE FROM vaccinations")
-    suspend fun clearAllVaccinations()
 }

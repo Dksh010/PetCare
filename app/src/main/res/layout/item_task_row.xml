@@ -1,69 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Today's checklist row: round check, title, time badge + category/routine, delete. -->
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    style="@style/Widget.PetCare.Card"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="12dp"
-    app:cardBackgroundColor="@color/surface_primary"
-    app:cardCornerRadius="20dp"
-    app:strokeColor="@color/surface_elevated"
-    app:strokeWidth="1dp"
-    app:cardElevation="0dp">
+    android:layout_marginBottom="@dimen/space_sm"
+    android:clickable="true"
+    android:focusable="true"
+    app:contentPaddingBottom="@dimen/space_md"
+    app:contentPaddingLeft="@dimen/space_md"
+    app:contentPaddingRight="@dimen/space_xs"
+    app:contentPaddingTop="@dimen/space_md">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp">
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
 
         <CheckBox
             android:id="@+id/cbTaskStatus"
-            android:layout_width="28dp"
-            android:layout_height="28dp"
+            android:layout_width="@dimen/touch_target"
+            android:layout_height="@dimen/touch_target"
+            android:background="@drawable/bg_round_check"
             android:button="@null"
-            android:background="@drawable/custom_checkbox"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:contentDescription="@string/mark_done"
+            android:gravity="center" />
 
-        <TextView
-            android:id="@+id/tvTaskTitle"
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:textColor="@color/text_primary"
-            android:textSize="15sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toStartOf="@+id/btnDeleteTask"
-            app:layout_constraintStart_toEndOf="@id/cbTaskStatus"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="Morning Walk" />
+            android:layout_marginStart="@dimen/space_sm"
+            android:layout_weight="1"
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/tvTaskMeta"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
-            android:textColor="@color/text_secondary"
-            android:textSize="12sp"
-            app:layout_constraintEnd_toEndOf="@id/tvTaskTitle"
-            app:layout_constraintStart_toStartOf="@id/tvTaskTitle"
-            app:layout_constraintTop_toBottomOf="@id/tvTaskTitle"
-            tools:text="08:00 AM · Exercise" />
+            <TextView
+                android:id="@+id/tvTaskTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:textAppearance="@style/TextAppearance.PetCare.Body.Medium"
+                tools:text="Morning walk" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_xs"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tvTaskTime"
+                    style="@style/PetCare.Badge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/primary_container"
+                    android:textColor="@color/on_primary_container"
+                    tools:text="7:30 AM" />
+
+                <TextView
+                    android:id="@+id/tvTaskMeta"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/space_sm"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:textAppearance="@style/TextAppearance.PetCare.Caption"
+                    tools:text="Walk · Morning routine" />
+            </LinearLayout>
+        </LinearLayout>
 
         <ImageButton
             android:id="@+id/btnDeleteTask"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
+            android:layout_width="@dimen/touch_target"
+            android:layout_height="@dimen/touch_target"
             android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/delete_task"
             android:src="@drawable/ic_delete"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:tint="@color/text_muted"
-            android:contentDescription="@string/delete_task" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
+            app:tint="@color/text_hint" />
+    </LinearLayout>
 </com.google.android.material.card.MaterialCardView>

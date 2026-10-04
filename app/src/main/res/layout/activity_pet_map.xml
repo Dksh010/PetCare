@@ -1,218 +1,315 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Map: full-screen map with floating header, filter chips, map controls and a place card. -->
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background_obsidian"
+    android:background="@color/background"
     tools:context=".ui.map.PetMapActivity">
 
+    <org.osmdroid.views.MapView
+        android:id="@+id/mapView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <!-- Floating header + category chips -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        android:orientation="vertical"
+        android:paddingTop="@dimen/space_md">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbarMap"
+        <com.google.android.material.card.MaterialCardView
+            style="@style/Widget.PetCare.Card.Elevated"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@color/surface_primary"
-            app:navigationIcon="@drawable/ic_back"
-            app:title="@string/pet_map"
-            app:titleTextColor="@color/text_primary" />
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_lg"
+            android:layout_marginEnd="@dimen/space_lg"
+            app:contentPadding="0dp">
 
-        <!-- Category Filter Chips Bar -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <com.google.android.material.appbar.MaterialToolbar
+                    android:id="@+id/toolbarMap"
+                    android:layout_width="0dp"
+                    android:layout_height="?attr/actionBarSize"
+                    android:layout_weight="1"
+                    android:background="@android:color/transparent"
+                    app:navigationContentDescription="@string/cd_back"
+                    app:navigationIcon="@drawable/ic_back"
+                    app:navigationIconTint="@color/text_primary"
+                    app:subtitle="@string/map_subtitle"
+                    app:subtitleTextAppearance="@style/TextAppearance.PetCare.Caption"
+                    app:title="@string/pet_map"
+                    app:titleTextAppearance="@style/TextAppearance.PetCare.Subtitle" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
         <HorizontalScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/surface_primary"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
-            android:paddingBottom="8dp"
+            android:layout_marginTop="@dimen/space_sm"
+            android:clipToPadding="false"
+            android:paddingStart="@dimen/space_lg"
+            android:paddingEnd="@dimen/space_lg"
             android:scrollbars="none">
 
             <com.google.android.material.chip.ChipGroup
                 android:id="@+id/chipGroupMapCategories"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:singleSelection="true"
-                app:selectionRequired="true">
+                app:chipSpacingHorizontal="@dimen/space_sm"
+                app:selectionRequired="true"
+                app:singleLine="true"
+                app:singleSelection="true">
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chipCategoryAll"
-                    style="@style/Widget.Material3.Chip.Filter"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/Widget.PetCare.Chip.Map"
                     android:checked="true"
-                    android:text="🌟 All Places" />
+                    android:text="@string/map_all" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipCategorySaved"
+                    style="@style/Widget.PetCare.Chip.Map"
+                    android:text="@string/map_saved" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chipCategoryVets"
-                    style="@style/Widget.Material3.Chip.Filter"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="🩺 Vets &amp; Clinics" />
+                    style="@style/Widget.PetCare.Chip.Map"
+                    android:text="@string/map_vets" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chipCategoryGrooming"
-                    style="@style/Widget.Material3.Chip.Filter"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="✂️ Grooming" />
+                    style="@style/Widget.PetCare.Chip.Map"
+                    android:text="@string/map_grooming" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chipCategoryShops"
-                    style="@style/Widget.Material3.Chip.Filter"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="🛍️ Pet Shops" />
+                    style="@style/Widget.PetCare.Chip.Map"
+                    android:text="@string/map_shops" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chipCategoryParks"
-                    style="@style/Widget.Material3.Chip.Filter"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="🎾 Pet Parks" />
+                    style="@style/Widget.PetCare.Chip.Map"
+                    android:text="@string/map_parks" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chipCategoryShelters"
-                    style="@style/Widget.Material3.Chip.Filter"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="🐾 Shelters" />
-
+                    style="@style/Widget.PetCare.Chip.Map"
+                    android:text="@string/map_shelters" />
             </com.google.android.material.chip.ChipGroup>
         </HorizontalScrollView>
 
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1">
-
-            <org.osmdroid.views.MapView
-                android:id="@+id/mapView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-
-            <!-- Loading Indicator Overlay -->
-            <ProgressBar
-                android:id="@+id/pbMapLoading"
-                style="@style/Widget.AppCompat.ProgressBar"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_gravity="center"
-                android:visibility="gone" />
-
-            <!-- Floating Info Card for Selected POI -->
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/cardPoiDetails"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                android:layout_margin="16dp"
-                android:visibility="gone"
-                app:cardBackgroundColor="@color/surface_primary"
-                app:cardCornerRadius="20dp"
-                app:strokeColor="@color/brand_green"
-                app:strokeWidth="1.5dp"
-                app:cardElevation="8dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="20dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/tvPoiIcon"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="🩺"
-                            android:textSize="28sp" />
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:layout_marginStart="12dp"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:id="@+id/tvPoiName"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textColor="@color/text_primary"
-                                android:textSize="18sp"
-                                android:textStyle="bold"
-                                tools:text="Central Veterinary Clinic" />
-
-                            <TextView
-                                android:id="@+id/tvPoiCategory"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textColor="@color/brand_green"
-                                android:textSize="13sp"
-                                tools:text="Veterinary Hospital · Open Now" />
-                        </LinearLayout>
-
-                        <ImageButton
-                            android:id="@+id/btnClosePoiCard"
-                            android:layout_width="32dp"
-                            android:layout_height="32dp"
-                            android:background="?attr/selectableItemBackgroundBorderless"
-                            android:src="@drawable/ic_back"
-                            app:tint="@color/text_muted"
-                            android:contentDescription="Close" />
-                    </LinearLayout>
-
-                    <TextView
-                        android:id="@+id/tvPoiAddress"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:textColor="@color/text_secondary"
-                        android:textSize="13sp"
-                        tools:text="Lazimpat, Kathmandu 44600, Nepal" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:orientation="horizontal">
-
-                        <Button
-                            android:id="@+id/btnPoiDirections"
-                            style="@style/PetCarePrimaryButton"
-                            android:layout_width="0dp"
-                            android:layout_height="48dp"
-                            android:layout_weight="1"
-                            android:layout_marginEnd="8dp"
-                            android:text="Get Directions 🧭"
-                            android:textSize="13sp" />
-
-                        <Button
-                            android:id="@+id/btnPoiShare"
-                            style="@style/Widget.Material3.Button.OutlinedButton"
-                            android:layout_width="0dp"
-                            android:layout_height="48dp"
-                            android:layout_weight="1"
-                            android:layout_marginStart="8dp"
-                            android:text="Share Location 🔗"
-                            android:textColor="@color/brand_green"
-                            android:textSize="13sp"
-                            app:strokeColor="@color/brand_green" />
-                    </LinearLayout>
-
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
-
-        </FrameLayout>
+        <TextView
+            android:id="@+id/tvMapHint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/space_sm"
+            android:background="@drawable/bg_pill"
+            android:backgroundTint="@color/secondary"
+            android:drawablePadding="@dimen/space_xs"
+            android:elevation="@dimen/elevation_card"
+            android:gravity="center_vertical"
+            android:paddingStart="@dimen/space_md"
+            android:paddingTop="@dimen/space_xs"
+            android:paddingEnd="@dimen/space_md"
+            android:paddingBottom="@dimen/space_xs"
+            android:text="@string/map_hint"
+            android:textAppearance="@style/TextAppearance.PetCare.Caption"
+            android:textColor="@color/text_on_dark"
+            app:drawableStartCompat="@drawable/ic_location_sm"
+            app:drawableTint="@color/accent" />
     </LinearLayout>
 
+    <ProgressBar
+        android:id="@+id/pbMapLoading"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:indeterminateTint="@color/primary"
+        android:visibility="gone" />
+
+    <!-- Map controls -->
+    <LinearLayout
+        android:id="@+id/layoutMapControls"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|center_vertical"
+        android:layout_marginEnd="@dimen/space_lg"
+        android:orientation="vertical">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnZoomIn"
+            style="@style/Widget.PetCare.IconButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/zoom_in"
+            android:elevation="@dimen/elevation_card"
+            app:icon="@drawable/ic_add" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnZoomOut"
+            style="@style/Widget.PetCare.IconButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/zoom_out"
+            android:elevation="@dimen/elevation_card"
+            app:icon="@drawable/ic_remove" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnMyLocation"
+            style="@style/Widget.PetCare.IconButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_sm"
+            android:contentDescription="@string/my_location"
+            android:elevation="@dimen/elevation_card"
+            app:icon="@drawable/ic_my_location"
+            app:iconTint="@color/primary" />
+    </LinearLayout>
+
+    <!-- Place card -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardPoiDetails"
+        style="@style/Widget.PetCare.Card.Elevated"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_margin="@dimen/space_lg"
+        android:visibility="gone"
+        app:cardElevation="@dimen/elevation_raised"
+        app:contentPadding="@dimen/space_xl"
+        tools:visibility="visible">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tvPoiIcon"
+                    android:layout_width="@dimen/icon_tile_lg"
+                    android:layout_height="@dimen/icon_tile_lg"
+                    android:background="@drawable/bg_icon_tile"
+                    android:backgroundTint="@color/primary_container"
+                    android:gravity="center"
+                    android:textSize="26sp"
+                    tools:text="🩺" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/space_md"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tvPoiName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:maxLines="2"
+                        android:textAppearance="@style/TextAppearance.PetCare.Subtitle"
+                        tools:text="Kathmandu Vet Clinic" />
+
+                    <TextView
+                        android:id="@+id/tvPoiCategory"
+                        style="@style/PetCare.Badge"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/space_xs"
+                        android:backgroundTint="@color/primary_container"
+                        android:textColor="@color/on_primary_container"
+                        tools:text="Veterinary clinic · My place" />
+                </LinearLayout>
+
+                <ImageButton
+                    android:id="@+id/btnClosePoiCard"
+                    android:layout_width="@dimen/touch_target"
+                    android:layout_height="@dimen/touch_target"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="@string/cd_close"
+                    android:src="@drawable/ic_close"
+                    app:tint="@color/text_secondary" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tvPoiAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_md"
+                android:drawablePadding="@dimen/space_xs"
+                android:gravity="center_vertical"
+                android:textAppearance="@style/TextAppearance.PetCare.Body.Secondary"
+                app:drawableStartCompat="@drawable/ic_location_sm"
+                app:drawableTint="@color/text_secondary"
+                tools:text="Lazimpat, Kathmandu" />
+
+            <TextView
+                android:id="@+id/tvPoiLinked"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_md"
+                android:background="@drawable/bg_icon_tile"
+                android:backgroundTint="@color/surface_variant"
+                android:lineSpacingExtra="4dp"
+                android:padding="@dimen/space_md"
+                android:textAppearance="@style/TextAppearance.PetCare.Caption"
+                android:textColor="@color/text_primary"
+                android:visibility="gone"
+                tools:text="Linked appointments and activities:\n• Annual check-up · Max · Oct 5"
+                tools:visibility="visible" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_lg"
+                android:orientation="horizontal">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnPoiDirections"
+                    style="@style/Widget.PetCare.Button"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/space_sm"
+                    android:layout_weight="1"
+                    android:minHeight="@dimen/touch_target"
+                    android:text="@string/directions"
+                    app:icon="@drawable/ic_directions" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnPoiShare"
+                    style="@style/Widget.PetCare.Button.Outlined"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:minHeight="@dimen/touch_target"
+                    android:text="@string/share"
+                    app:icon="@drawable/ic_share" />
+            </LinearLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnPoiSaveToggle"
+                style="@style/Widget.PetCare.Button.Text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_xs"
+                android:text="@string/save_place"
+                app:icon="@drawable/ic_bookmark" />
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

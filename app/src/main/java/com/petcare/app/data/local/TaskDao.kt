@@ -10,7 +10,7 @@ import com.petcare.app.data.model.TaskEntity
 import kotlinx.coroutines.flow.Flow
 
 /**
- * Data Access Object for performing database operations on the 'tasks' table.
+ * Data Access Object for routine steps stored in the 'tasks' table.
  */
 @Dao
 interface TaskDao {
@@ -18,18 +18,21 @@ interface TaskDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertTask(task: TaskEntity): Long
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertTasks(tasks: List<TaskEntity>)
+
     @Update
     suspend fun updateTask(task: TaskEntity)
 
     @Delete
     suspend fun deleteTask(task: TaskEntity)
 
-    @Query("SELECT * FROM tasks WHERE pet_id = :petId ORDER BY due_date ASC")
+    @Query("SELECT * FROM tasks WHERE pet_id = :petId ORDER BY time ASC")
     fun getTasksForPet(petId: Long): Flow<List<TaskEntity>>
 
-    @Query("SELECT * FROM tasks WHERE is_completed = 0 ORDER BY due_date ASC")
-    fun getPendingTasks(): Flow<List<TaskEntity>>
+    @Query("SELECT * FROM tasks WHERE routine_id = :routineId ORDER BY time ASC")
+    suspend fun getTasksForRoutine(routineId: Long): List<TaskEntity>
 
-    @Query("UPDATE tasks SET is_completed = :isCompleted WHERE id = :taskId")
-    suspend fun updateTaskStatus(taskId: Long, isCompleted: Boolean)
+    @Query("UPDATE tasks SET completed_on = :completedOn WHERE id = :taskId")
+    suspend fun setCompletedOn(taskId: Long, completedOn: String)
 }

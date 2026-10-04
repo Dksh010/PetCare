@@ -1,5 +1,6 @@
 package com.petcare.app.ui.dashboard
 
+import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.petcare.app.data.repository.PetRepository
@@ -14,5 +15,9 @@ class PetViewModelFactory(
             return PetViewModel(repository) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
+    }
+
+    companion object {
+        fun from(context: Context) = PetViewModelFactory(PetRepository.from(context.applicationContext))
     }
 }
